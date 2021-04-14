@@ -24,6 +24,7 @@ class ShowPost extends Component {
   // request using the ID param in the front-end route URL
   // and set the state to trigger a re-render
   componentDidMount () {
+    const msgAlert = this.props.msgAlert
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: `${apiUrl}/posts/${this.props.match.params.id}`,
@@ -38,14 +39,23 @@ class ShowPost extends Component {
         // setting the state will force a re-render
         this.setState({ post: response.data.post })
       })
+      .then(() => msgAlert({
+        heading: 'Post Selected',
+        message: 'Probably some good info in this one!',
+        variant: 'success'
+      }))
       .catch(console.error)
   }
 
   deletePost = () => {
+    const msgAlert = this.props.msgAlert
     // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: apiUrl + '/posts/' + this.props.match.params.id,
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
     })
       .then(response => {
         // Upon successful delete, we want to do something
@@ -54,6 +64,16 @@ class ShowPost extends Component {
         // State change forces a re-render
         this.setState({ deleted: true })
       })
+      .then(() => msgAlert({
+        heading: 'You just deleted your post',
+        message: 'Say "bye bye!"',
+        variant: 'success'
+      }))
+      .catch(() => msgAlert({
+        heading: 'THIS IS NOT YOUR POST',
+        message: 'What do you think your trying to pull!"',
+        variant: 'danger'
+      }))
       .catch(console.error)
   }
 
