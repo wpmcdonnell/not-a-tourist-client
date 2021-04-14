@@ -1,7 +1,8 @@
 // 1. Imports
 // Component & Fragment
 import React, { Component, Fragment } from 'react'
-import { Redirect, Link, withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
@@ -97,10 +98,7 @@ class ShowPost extends Component {
         <div>
           <h4>{post.title}</h4>
           <p>{post.list}</p>
-          <button onClick={this.deletePost}>Delete Me</button>
-          <button>
-            <Link to={'/update-post/' + this.props.match.params.id}>Update Me</Link>
-          </button>
+          {post.owner === this.props.user._id && <Button variant='primary' onClick={this.deletePost}>Delete Me</Button>}
         </div>
       )
     }
@@ -109,7 +107,11 @@ class ShowPost extends Component {
       <Fragment>
         <h1>Just One Post:</h1>
         {postJsx}
+        <div className='form-floating'>
+          <textarea className='form-control' placeholder='Leave a comment here' id='floatingTextarea2'></textarea>
+        </div>
       </Fragment>
+
     )
   }
 }
