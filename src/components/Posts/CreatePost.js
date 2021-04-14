@@ -72,7 +72,7 @@ class CreatePost extends Component {
   render () {
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
-      return <Redirect to={`/show-post/${this.state.createdId}`}/>
+      return <Redirect to={`/posts/${this.state.createdId}`}/>
     }
 
     return (

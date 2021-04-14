@@ -1,7 +1,7 @@
 // 1. Imports
 // Component & Fragment
 import React, { Component, Fragment } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
@@ -25,7 +25,13 @@ class ShowPost extends Component {
   // and set the state to trigger a re-render
   componentDidMount () {
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
-    axios(`${apiUrl}/posts/${this.props.match.params.id}`)
+    axios({
+      url: `${apiUrl}/posts/${this.props.match.params.id}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
       .then(response => {
         // axios response object contains a `data` key
         // { data: { post: { title... }}}
@@ -89,4 +95,4 @@ class ShowPost extends Component {
 }
 
 // 3. Exports
-export default ShowPost
+export default withRouter(ShowPost)
