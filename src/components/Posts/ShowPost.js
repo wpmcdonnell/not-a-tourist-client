@@ -108,7 +108,11 @@ class ShowPost extends Component {
         <h1>Just One Post:</h1>
         {postJsx}
         <div className='form-floating'>
-          <textarea className='form-control' placeholder='Leave a comment here' id='floatingTextarea2'></textarea>
+          <form>
+            <textarea className='form-control' placeholder='Leave a comment here' id='floatingTextarea2'>
+            </textarea>
+            <button type='submit'>Post</button>
+          </form>
         </div>
       </Fragment>
 
