@@ -13,6 +13,10 @@ class ShowPost extends Component {
     this.state = {
       // initially we have no data, no post (null)
       post: null,
+
+      comment: {
+        text: ''
+      },
       // Delete boolean to manage if we've deleted this post
       deleted: false
     }
@@ -45,6 +49,32 @@ class ShowPost extends Component {
         message: 'Probably some good info in this one!',
         variant: 'success'
       }))
+      .catch(console.error)
+  }
+
+  handleSubmit = (event) => {
+    const user = this.props.user
+    // Prevent the page from refreshing!
+    event.preventDefault()
+    // axios.post(`${apiUrl}/posts`, {
+    //   post: this.state.post
+    // })
+    axios({
+      url: `${apiUrl}/comments`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      },
+      data: { comment: this.state.comment }
+    })
+      .then(response => {
+        // Reset the form by resetting the state to empty values
+        // this.setState({ post: { title: '', list: '' } })
+        // Boolean did we do the thing
+        // this.setState({ created: true })
+        // Store the ID of the created post
+        this.setState({ createdId: response.data.comment._id })
+      })
       .catch(console.error)
   }
 
@@ -109,7 +139,7 @@ class ShowPost extends Component {
         {postJsx}
         <div className='form-floating'>
           <form>
-            <textarea className='form-control' placeholder='Leave a comment here' id='floatingTextarea2'>
+            <textarea className='form-control' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} >
             </textarea>
             <button type='submit'>Post</button>
           </form>
