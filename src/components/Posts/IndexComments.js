@@ -4,6 +4,7 @@
 
 // 1. Imports
 import React, { Component, Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
 // import { Link } from 'react-router-dom'
 // axios package (HTTP requests)
 // const axios = require('axios')
@@ -53,6 +54,7 @@ class IndexComments extends Component {
 
   // render is REQUIRED for any class component
   render () {
+    console.log(this.props)
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
     // Every component in react is independent & so it MUST
@@ -62,6 +64,7 @@ class IndexComments extends Component {
     // if statements to control the value of a variable (JSX)
     // then display that variable in the return
     let commentsJsx = ''
+    // let commentsJsx = (<p>{this.state.comments.filter(comments => comments.postOwner === this.params.match.id)}</p>)
 
     if (!this.state.comments) {
       // if the comments state is null
@@ -73,9 +76,10 @@ class IndexComments extends Component {
       // we have comments! display them
       commentsJsx = (
         <ul>
-          {this.state.comments.map(comments => (
-            <li key={comments._id}>
-              <p>{comments.text}</p>
+          {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
+            <li key={filteredComments._id}>
+              <p>{filteredComments.owner}</p>
+              <p>{filteredComments.text}</p>
             </li>
           ))}
         </ul>
@@ -93,4 +97,4 @@ class IndexComments extends Component {
 }
 
 // 3. The export
-export default IndexComments
+export default withRouter(IndexComments)

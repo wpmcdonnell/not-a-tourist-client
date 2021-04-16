@@ -14,7 +14,8 @@ class Comments extends Component {
       // initially we have no data, no post (null)
 
       comment: {
-        text: ''
+        text: '',
+        postOwner: this.props.match.params.id
       },
       // Delete boolean to manage if we've deleted this post
       deleted: false,
