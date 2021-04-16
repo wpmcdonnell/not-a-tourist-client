@@ -12,6 +12,8 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import CreatePost from './components/Posts/CreatePost'
 import ShowPost from './components/Posts/ShowPost'
 import IndexPosts from './components/Posts/IndexPosts'
+import Comments from './components/Posts/Comments'
+import IndexComments from './components/Posts/IndexComments'
 
 class App extends Component {
   constructor (props) {
@@ -76,6 +78,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/posts' render={() => (
             <IndexPosts msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
+            <Comments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
+            <IndexComments msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

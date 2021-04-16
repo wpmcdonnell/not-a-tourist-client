@@ -2,22 +2,23 @@
 // Component & Fragment
 import React, { Component, Fragment } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
-// import Comments from './Comments'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
 // 2. Class
-class ShowPost extends Component {
-  constructor () {
-    super()
+class Comments extends Component {
+  constructor (props) {
+    super(props)
     this.state = {
       // initially we have no data, no post (null)
-      post: null,
 
-      comment: '',
+      comment: {
+        text: ''
+      },
       // Delete boolean to manage if we've deleted this post
-      deleted: false
+      deleted: false,
+      createdId: null
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
@@ -27,33 +28,11 @@ class ShowPost extends Component {
   // When this component mounts, make a GET
   // request using the ID param in the front-end route URL
   // and set the state to trigger a re-render
-  componentDidMount () {
-    const msgAlert = this.props.msgAlert
-    console.log(this.props.user)
-    // axios(apiUrl + '/posts/' + this.props.match.params.id)
-    axios({
-      url: `${apiUrl}/posts/${this.props.match.params.id}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${this.props.user.token}`
-      }
-    })
-      .then(response => {
-        // axios response object contains a `data` key
-        // { data: { post: { title... }}}
-        // setting the state will force a re-render
-        this.setState({ post: response.data.post })
-      })
-      .then(() => msgAlert({
-        heading: 'Post Selected',
-        message: 'Probably some good info in this one!',
-        variant: 'success'
-      }))
-      .catch(console.error)
-  }
+  componentDidMount () {}
 
   handleSubmit = (event) => {
     const user = this.props.user
+    console.log(this.props)
     // Prevent the page from refreshing!
     event.preventDefault()
     // axios.post(`${apiUrl}/posts`, {
@@ -74,6 +53,7 @@ class ShowPost extends Component {
         // this.setState({ created: true })
         // Store the ID of the created post
         this.setState({ createdId: response.data.comment._id })
+        console.log(response.data.comment._id)
       })
       .catch(console.error)
   }
@@ -123,40 +103,24 @@ class ShowPost extends Component {
   }
 
   render () {
-    // create a local variable `post` and set it's value
-    // to the value of the `post` key on `this.state`
-    const { post, deleted, comment } = this.state
-    // 2 scenarios: loading, post to show
-
-    let postJsx = ''
-
-    if (deleted) {
-      // if deleted is true, we can redirect
-      return <Redirect to="/posts"/>
-    } else if (!post) {
-      // loading, no post yet
-      postJsx = <p>Loading...</p>
+    if (this.state.createdId) {
+      return <Redirect to={'/posts/'}/>
     } else {
-      // we have a post! Display it
-      postJsx = (
-        <div>
-          <h4>{post.title}</h4>
-          <p>{post.list}</p>
-          {post.owner === this.props.user._id && <Button variant='primary' onClick={this.deletePost}>Delete Me</Button>}
-          <p>{comment.text}</p>
-        </div>
+      return (
+        <Fragment>
+          <div className='form-floating'>
+            <form onSubmit={this.handleSubmit}>
+              <textarea className='form-control' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
+              </textarea>
+              <Button type='submit'>Post</Button>
+            </form>
+          </div>
+        </Fragment>
+
       )
     }
-
-    return (
-      <Fragment>
-        <h1>Just One Post:</h1>
-        {postJsx}
-      </Fragment>
-
-    )
   }
 }
 
 // 3. Exports
-export default withRouter(ShowPost)
+export default withRouter(Comments)
