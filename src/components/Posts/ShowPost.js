@@ -15,7 +15,7 @@ class ShowPost extends Component {
       // initially we have no data, no post (null)
       post: null,
 
-      comment: '',
+      toUpdate: false,
       // Delete boolean to manage if we've deleted this post
       deleted: false
     }
@@ -92,6 +92,14 @@ class ShowPost extends Component {
     })
   }
 
+  update = (event) => {
+    // Upon successful delete, we want to do something
+    // a common pattern w/ React is when something happens
+    // We modify the state
+    // State change forces a re-render
+    return this.setState({ toUpdate: true })
+  }
+
   deletePost = () => {
     const msgAlert = this.props.msgAlert
     // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
@@ -125,7 +133,7 @@ class ShowPost extends Component {
   render () {
     // create a local variable `post` and set it's value
     // to the value of the `post` key on `this.state`
-    const { post, deleted, comment } = this.state
+    const { post, deleted, toUpdate } = this.state
     // 2 scenarios: loading, post to show
 
     let postJsx = ''
@@ -133,6 +141,8 @@ class ShowPost extends Component {
     if (deleted) {
       // if deleted is true, we can redirect
       return <Redirect to="/posts"/>
+    } else if (toUpdate) {
+      return <Redirect to={'/posts/' + this.props.match.params.id + '/update'}/>
     } else if (!post) {
       // loading, no post yet
       postJsx = <p>Loading...</p>
@@ -143,7 +153,7 @@ class ShowPost extends Component {
           <h4>{post.title}</h4>
           <p>{post.list}</p>
           {post.owner === this.props.user._id && <Button variant='primary' onClick={this.deletePost}>Delete Me</Button>}
-          <p>{comment.text}</p>
+          {post.owner === this.props.user._id && <Button variant='primary' onClick={this.update}>Update Me</Button>}
         </div>
       )
     }
