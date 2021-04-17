@@ -24,7 +24,7 @@ class UpdatePost extends Component {
     // so this is a SHOW request (GET) to /posts/:id
     // This is not the update
     axios({
-      url: `${apiUrl}/posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/dc-posts/${this.props.match.params.id}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
@@ -78,7 +78,7 @@ class UpdatePost extends Component {
 
     axios({
       method: 'PATCH',
-      url: `${apiUrl}/posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/dc-posts/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
       },
@@ -98,7 +98,7 @@ class UpdatePost extends Component {
 
   render () {
     if (this.state.updated) {
-      return <Redirect to={'/posts/' + this.props.match.params.id}/>
+      return <Redirect to={'/dc-posts/' + this.props.match.params.id}/>
     }
     return (
       <Fragment>

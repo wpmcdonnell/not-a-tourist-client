@@ -12,14 +12,26 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import CreatePost from './components/Posts/CreatePost'
 import ShowPost from './components/Posts/ShowPost'
 import ShowPostNY from './components/Posts/ShowPostNY'
+import ShowPostSE from './components/Posts/ShowPostSE'
+import ShowPostLA from './components/Posts/ShowPostLA'
+import ShowPostDC from './components/Posts/ShowPostDC'
 import IndexPosts from './components/Posts/IndexPosts'
 import Comments from './components/Posts/Comments'
 import IndexComments from './components/Posts/IndexComments'
 import UpdatePost from './components/Posts/UpdatePosts'
 import UpdatePostNY from './components/Posts/UpdatePostsNY'
+import UpdatePostDC from './components/Posts/UpdatePostsDC'
+import UpdatePostLA from './components/Posts/UpdatePostsLA'
+import UpdatePostSE from './components/Posts/UpdatePostsSE'
 import Cities from './components/Posts/Cities'
 import IndexPostsNY from './components/Posts/IndexPostsNY'
+import IndexPostsSE from './components/Posts/IndexPostsSE'
+import IndexPostsLA from './components/Posts/IndexPostsLA'
+import IndexPostsDC from './components/Posts/IndexPostsDC'
 import CreatePostNY from './components/Posts/CreatePostNY'
+import CreatePostSE from './components/Posts/CreatePostSE'
+import CreatePostLA from './components/Posts/CreatePostLA'
+import CreatePostDC from './components/Posts/CreatePostDC'
 
 class App extends Component {
   constructor (props) {
@@ -82,11 +94,29 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-post-ny' render={() => (
             <CreatePostNY msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} path='/create-post-se' render={() => (
+            <CreatePostSE msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-post-la' render={() => (
+            <CreatePostLA msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-post-dc' render={() => (
+            <CreatePostDC msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
             <ShowPost msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id' render={() => (
             <ShowPostNY msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts/:id' render={() => (
+            <ShowPostDC msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-posts/:id' render={() => (
+            <ShowPostSE msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
+            <ShowPostLA msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/posts' render={() => (
             <IndexPosts msgAlert={this.msgAlert} user={user} />
@@ -97,10 +127,28 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id' render={() => (
             <Comments msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts/:id' render={() => (
+            <Comments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
+            <Comments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-posts/:id' render={() => (
+            <Comments msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
             <IndexComments msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id' render={() => (
+            <IndexComments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-posts/:id' render={() => (
+            <IndexComments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
+            <IndexComments msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts/:id' render={() => (
             <IndexComments msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/posts/:id/update' render={() => (
@@ -109,11 +157,29 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id/update' render={() => (
             <UpdatePostNY msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts/:id/update' render={() => (
+            <UpdatePostDC msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts/:id/update' render={() => (
+            <UpdatePostLA msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-posts/:id/update' render={() => (
+            <UpdatePostSE msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/cities/' render={() => (
             <Cities msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts' render={() => (
             <IndexPostsNY msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts' render={() => (
+            <IndexPostsDC msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts' render={() => (
+            <IndexPostsLA msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-posts' render={() => (
+            <IndexPostsSE msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

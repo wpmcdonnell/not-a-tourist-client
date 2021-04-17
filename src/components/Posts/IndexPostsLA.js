@@ -4,8 +4,8 @@
 
 // 1. Imports
 import React, { Component, Fragment } from 'react'
-
-import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+import { Redirect, Link } from 'react-router-dom'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -25,7 +25,8 @@ class IndexPostsLA extends Component {
     this.state = {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
-      posts: null
+      posts: null,
+      create: false
     }
   }
 
@@ -38,7 +39,7 @@ class IndexPostsLA extends Component {
     console.log('Mounted!', this.state.posts)
     // default to a GET request
     axios({
-      url: `${apiUrl}/posts`,
+      url: `${apiUrl}/la-posts`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${user.token}`
@@ -58,8 +59,13 @@ class IndexPostsLA extends Component {
       .catch(console.error)
   }
 
+  create = (event) => {
+    return this.setState({ create: true })
+  }
+
   // render is REQUIRED for any class component
   render () {
+    const { create } = this.state
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
     // Every component in react is independent & so it MUST
@@ -70,7 +76,9 @@ class IndexPostsLA extends Component {
     // then display that variable in the return
     let postsJsx = ''
 
-    if (!this.state.posts) {
+    if (create) {
+      return <Redirect to={'/create-post-la'}/>
+    } else if (!this.state.posts) {
       // if the posts state is null
       postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
@@ -82,7 +90,7 @@ class IndexPostsLA extends Component {
         <ul>
           {this.state.posts.map(post => (
             <li key={post._id}>
-              <Link to={`/posts/${post._id}`}>{post.title}</Link>
+              <Link to={`/la-posts/${post._id}`}>{post.title}</Link>
             </li>
           ))}
         </ul>
@@ -92,6 +100,7 @@ class IndexPostsLA extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
+        <Button variant='primary' onClick={this.create}>Create a Post</Button>
         <h1>LOS ANGELES</h1>
         <h3>Check out all the sweet posts</h3>
         {postsJsx}

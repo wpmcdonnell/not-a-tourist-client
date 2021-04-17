@@ -60,10 +60,6 @@ class IndexPostsNY extends Component {
   }
 
   create = (event) => {
-    // Upon successful delete, we want to do something
-    // a common pattern w/ React is when something happens
-    // We modify the state
-    // State change forces a re-render
     return this.setState({ create: true })
   }
 

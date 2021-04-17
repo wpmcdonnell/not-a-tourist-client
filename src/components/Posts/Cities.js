@@ -60,11 +60,11 @@ class Cities extends Component {
       // if deleted is true, we can redirect
       return <Redirect to="/ny-posts"/>
     } else if (seattle) {
-      return <Redirect to="/posts/SE"/>
+      return <Redirect to="/se-posts"/>
     } else if (districtOfColumbia) {
-      return <Redirect to="/posts/DC"/>
+      return <Redirect to="/dc-posts"/>
     } else if (losAngeles) {
-      return <Redirect to="/posts/LA"/>
+      return <Redirect to="/la-posts"/>
     }
 
     return (
