@@ -10,6 +10,7 @@ import apiUrl from './../../apiConfig'
 class Comments extends Component {
   constructor (props) {
     super(props)
+    this.onBtnClick = this.onBtnClick.bind(this)
     this.state = {
       // initially we have no data, no post (null)
 
@@ -19,7 +20,8 @@ class Comments extends Component {
       },
       // Delete boolean to manage if we've deleted this post
       deleted: false,
-      createdId: null
+      createdId: null,
+      value: 0
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
@@ -54,7 +56,7 @@ class Comments extends Component {
         // this.setState({ created: true })
         // Store the ID of the created post
         this.setState({ createdId: response.data.comment._id, text: '' })
-        console.log(response.data.comment._id)
+        console.log('the comment has been submitted to data base')
       })
       .catch(console.error)
   }
@@ -103,6 +105,12 @@ class Comments extends Component {
       .catch(console.error)
   }
 
+  onBtnClick () {
+    this.setState({ value: this.state.value + 1 })
+    this.props.rerenderParentCallback()
+    console.log('button click')
+  }
+
   render () {
     return (
       <Fragment>
@@ -110,11 +118,10 @@ class Comments extends Component {
           <form onSubmit={this.handleSubmit}>
             <textarea className='form-control' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
             </textarea>
-            <Button type='submit'>Post</Button>
+            <Button type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
           </form>
         </div>
       </Fragment>
-
     )
   }
 }

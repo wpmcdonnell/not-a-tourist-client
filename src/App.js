@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
@@ -16,8 +16,6 @@ import ShowPostSE from './components/Posts/ShowPostSE'
 import ShowPostLA from './components/Posts/ShowPostLA'
 import ShowPostDC from './components/Posts/ShowPostDC'
 import IndexPosts from './components/Posts/IndexPosts'
-import Comments from './components/Posts/Comments'
-import IndexComments from './components/Posts/IndexComments'
 import UpdatePost from './components/Posts/UpdatePosts'
 import UpdatePostNY from './components/Posts/UpdatePostsNY'
 import UpdatePostDC from './components/Posts/UpdatePostsDC'
@@ -121,36 +119,6 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/posts' render={() => (
             <IndexPosts msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
-            <Comments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/ny-posts/:id' render={() => (
-            <Comments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/dc-posts/:id' render={() => (
-            <Comments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
-            <Comments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/se-posts/:id' render={() => (
-            <Comments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
-            <IndexComments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/ny-posts/:id' render={() => (
-            <IndexComments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/se-posts/:id' render={() => (
-            <IndexComments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
-            <IndexComments msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path='/dc-posts/:id' render={() => (
-            <IndexComments msgAlert={this.msgAlert} user={user} />
-          )} />
           <AuthenticatedRoute user={user} exact path='/posts/:id/update' render={() => (
             <UpdatePost msgAlert={this.msgAlert} user={user} />
           )} />
@@ -187,4 +155,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)

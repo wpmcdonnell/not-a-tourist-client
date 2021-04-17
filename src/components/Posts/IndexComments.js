@@ -35,6 +35,7 @@ class IndexComments extends Component {
     const user = this.props.user
     // axios request will go here
     console.log('Mounted!', this.state.comments)
+    console.log('Mounted!', this.props)
     // default to a GET request
     axios({
       url: `${apiUrl}/comments`,

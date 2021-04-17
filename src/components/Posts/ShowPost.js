@@ -4,6 +4,8 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 // import Comments from './Comments'
 import Button from 'react-bootstrap/Button'
+import Comments from './Comments'
+import IndexComments from './IndexComments'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
@@ -11,13 +13,15 @@ import apiUrl from './../../apiConfig'
 class ShowPost extends Component {
   constructor () {
     super()
+    this.rerenderParentCallback = this.rerenderParentCallback.bind(this)
     this.state = {
       // initially we have no data, no post (null)
       post: null,
 
       toUpdate: false,
       // Delete boolean to manage if we've deleted this post
-      deleted: false
+      deleted: false,
+      value: false
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
@@ -52,45 +56,55 @@ class ShowPost extends Component {
       .catch(console.error)
   }
 
-  handleSubmit = (event) => {
-    const user = this.props.user
-    // Prevent the page from refreshing!
-    event.preventDefault()
-    // axios.post(`${apiUrl}/posts`, {
-    //   post: this.state.post
-    // })
-    axios({
-      url: `${apiUrl}/comments`,
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      },
-      data: { comment: this.state.comment }
-    })
-      .then(response => {
-        // Reset the form by resetting the state to empty values
-        // this.setState({ post: { title: '', list: '' } })
-        // Boolean did we do the thing
-        // this.setState({ created: true })
-        // Store the ID of the created post
-        this.setState({ createdId: response.data.comment._id })
-      })
-      .catch(console.error)
+  rerenderParentCallback () {
+    this.setState({ value: true })
+    console.log('the state has been changed')
+
+    this.forceUpdate()
   }
 
-  handleChange = (event) => {
-    event.persist()
-    event.preventDefault()
-    this.setState(oldState => {
-      const value = event.target.value
-      const name = event.target.name
-
-      const updatedField = { [name]: value }
-
-      // spread operator ends up merging these two objects
-      return { comment: { ...oldState.comment, ...updatedField } }
-    })
+  componentDidUpdate (prevProps) {
+    console.log('The component did update')
   }
+  // handleSubmit = (event) => {
+  //   const user = this.props.user
+  //   // Prevent the page from refreshing!
+  //   event.preventDefault()
+  //   // axios.post(`${apiUrl}/posts`, {
+  //   //   post: this.state.post
+  //   // })
+  //   axios({
+  //     url: `${apiUrl}/comments`,
+  //     method: 'POST',
+  //     headers: {
+  //       'Authorization': `Bearer ${user.token}`
+  //     },
+  //     data: { comment: this.state.comment }
+  //   })
+  //     .then(response => {
+  //       // Reset the form by resetting the state to empty values
+  //       // this.setState({ post: { title: '', list: '' } })
+  //       // Boolean did we do the thing
+  //       // this.setState({ created: true })
+  //       // Store the ID of the created post
+  //       this.setState({ createdId: response.data.comment._id })
+  //     })
+  //     .catch(console.error)
+  // }
+  //
+  // handleChange = (event) => {
+  //   event.persist()
+  //   event.preventDefault()
+  //   this.setState(oldState => {
+  //     const value = event.target.value
+  //     const name = event.target.name
+  //
+  //     const updatedField = { [name]: value }
+  //
+  //     // spread operator ends up merging these two objects
+  //     return { comment: { ...oldState.comment, ...updatedField } }
+  //   })
+  // }
 
   update = (event) => {
     // Upon successful delete, we want to do something
@@ -162,6 +176,8 @@ class ShowPost extends Component {
       <Fragment>
         <h1>Just One Post:</h1>
         {postJsx}
+        <Comments rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
+        <IndexComments {...this.props} />
       </Fragment>
 
     )

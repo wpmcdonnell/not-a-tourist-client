@@ -4,6 +4,8 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 // import Comments from './Comments'
 import Button from 'react-bootstrap/Button'
+import Comments from './Comments'
+import IndexComments from './IndexComments'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
@@ -160,8 +162,10 @@ class ShowPost extends Component {
 
     return (
       <Fragment>
-        <h1>Just One Post:</h1>
+        <h1>DC BABY</h1>
         {postJsx}
+        <Comments {...this.props} />
+        <IndexComments {...this.props} />
       </Fragment>
 
     )
