@@ -35,7 +35,7 @@ class Comments extends Component {
 
   handleSubmit = (event) => {
     const user = this.props.user
-    console.log(this.props)
+    const msgAlert = this.props.msgAlert
     // Prevent the page from refreshing!
     event.preventDefault()
     // axios.post(`${apiUrl}/posts`, {
@@ -56,8 +56,12 @@ class Comments extends Component {
         // this.setState({ created: true })
         // Store the ID of the created post
         this.setState({ createdId: response.data.comment._id, text: '' })
-        console.log('the comment has been submitted to data base')
       })
+      .then(() => msgAlert({
+        heading: 'Well done',
+        message: 'You just made a comment!',
+        variant: 'success'
+      }))
       .catch(console.error)
   }
 
@@ -114,7 +118,7 @@ class Comments extends Component {
   render () {
     return (
       <Fragment>
-        <div className='form-floating'>
+        <div>
           <form onSubmit={this.handleSubmit}>
             <textarea className='form-control' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
             </textarea>

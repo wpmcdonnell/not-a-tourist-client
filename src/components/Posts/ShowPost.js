@@ -21,11 +21,19 @@ class ShowPost extends Component {
       toUpdate: false,
       // Delete boolean to manage if we've deleted this post
       deleted: false,
-      value: false
+      commentValue: 0,
+      indexValue: 1
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
     // this.deletePost = this.deletePost.bind(this)
+  }
+
+  rerenderParentCallback () {
+    setTimeout(function () {
+      this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
+    }.bind(this), 2000)
+    console.log('the state has been changed')
   }
 
   // When this component mounts, make a GET
@@ -55,56 +63,6 @@ class ShowPost extends Component {
       }))
       .catch(console.error)
   }
-
-  rerenderParentCallback () {
-    this.setState({ value: true })
-    console.log('the state has been changed')
-
-    this.forceUpdate()
-  }
-
-  componentDidUpdate (prevProps) {
-    console.log('The component did update')
-  }
-  // handleSubmit = (event) => {
-  //   const user = this.props.user
-  //   // Prevent the page from refreshing!
-  //   event.preventDefault()
-  //   // axios.post(`${apiUrl}/posts`, {
-  //   //   post: this.state.post
-  //   // })
-  //   axios({
-  //     url: `${apiUrl}/comments`,
-  //     method: 'POST',
-  //     headers: {
-  //       'Authorization': `Bearer ${user.token}`
-  //     },
-  //     data: { comment: this.state.comment }
-  //   })
-  //     .then(response => {
-  //       // Reset the form by resetting the state to empty values
-  //       // this.setState({ post: { title: '', list: '' } })
-  //       // Boolean did we do the thing
-  //       // this.setState({ created: true })
-  //       // Store the ID of the created post
-  //       this.setState({ createdId: response.data.comment._id })
-  //     })
-  //     .catch(console.error)
-  // }
-  //
-  // handleChange = (event) => {
-  //   event.persist()
-  //   event.preventDefault()
-  //   this.setState(oldState => {
-  //     const value = event.target.value
-  //     const name = event.target.name
-  //
-  //     const updatedField = { [name]: value }
-  //
-  //     // spread operator ends up merging these two objects
-  //     return { comment: { ...oldState.comment, ...updatedField } }
-  //   })
-  // }
 
   update = (event) => {
     // Upon successful delete, we want to do something
@@ -176,8 +134,8 @@ class ShowPost extends Component {
       <Fragment>
         <h1>Just One Post:</h1>
         {postJsx}
-        <Comments rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
-        <IndexComments {...this.props} />
+        <Comments key={this.state.commentValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
+        <IndexComments key={this.state.indexValue} {...this.props} />
       </Fragment>
 
     )
