@@ -77,7 +77,7 @@ class CreatePost extends Component {
 
     return (
       <Fragment>
-        <h1>Create A New Post</h1>
+        <h1>Create A New Post for Gen Thread</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

@@ -77,7 +77,7 @@ class CreatePostNY extends Component {
 
     return (
       <Fragment>
-        <h1>Create A New Post for the Greatest City on Earth</h1>
+        <h1>DC CHILLIN!</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

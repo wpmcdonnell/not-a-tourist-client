@@ -30,6 +30,7 @@ import CreatePostNY from './components/Posts/CreatePostNY'
 import CreatePostSE from './components/Posts/CreatePostSE'
 import CreatePostLA from './components/Posts/CreatePostLA'
 import CreatePostDC from './components/Posts/CreatePostDC'
+import Background from './components/Background/Background'
 
 class App extends Component {
   constructor (props) {
@@ -76,6 +77,9 @@ class App extends Component {
         <main className="container">
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+          )} />
+          <Route exact path='/' render={() => (
+            <Background msgAlert={this.msgAlert} />
           )} />
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />

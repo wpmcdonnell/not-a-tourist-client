@@ -77,7 +77,7 @@ class CreatePostNY extends Component {
 
     return (
       <Fragment>
-        <h1>DC wud up!</h1>
+        <h1>Does it ever stop raining?</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

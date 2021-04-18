@@ -77,7 +77,7 @@ class CreatePostNY extends Component {
 
     return (
       <Fragment>
-        <h1>I took the 405 to San Vicente</h1>
+        <h1>I took the 405 to San Vicente and LA over NY, amiright?</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

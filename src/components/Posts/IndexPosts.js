@@ -92,7 +92,7 @@ class IndexPosts extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <h1>Index Posts Page</h1>
+        <h1>GENERAL TOPICS</h1>
         <h3>Check out all the sweet posts</h3>
         {postsJsx}
       </Fragment>
