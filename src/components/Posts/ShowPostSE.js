@@ -10,22 +10,31 @@ import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
 // 2. Class
-class ShowPost extends Component {
+class ShowPostSE extends Component {
   constructor () {
     super()
+    this.rerenderParentCallback = this.rerenderParentCallback.bind(this)
     this.state = {
       // initially we have no data, no post (null)
       post: null,
 
       toUpdate: false,
       // Delete boolean to manage if we've deleted this post
-      deleted: false
+      deleted: false,
+      commentValue: 0,
+      indexValue: 1
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
     // this.deletePost = this.deletePost.bind(this)
   }
 
+  rerenderParentCallback () {
+    setTimeout(function () {
+      this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
+    }.bind(this), 1000)
+    console.log('the state has been changed')
+  }
   // When this component mounts, make a GET
   // request using the ID param in the front-end route URL
   // and set the state to trigger a re-render
@@ -164,8 +173,8 @@ class ShowPost extends Component {
       <Fragment>
         <h1>SEATTLE</h1>
         {postJsx}
-        <Comments {...this.props} />
-        <IndexComments {...this.props} />
+        <Comments key={this.state.commentValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
+        <IndexComments key={this.state.indexValue} {...this.props} />
       </Fragment>
 
     )
@@ -173,4 +182,4 @@ class ShowPost extends Component {
 }
 
 // 3. Exports
-export default withRouter(ShowPost)
+export default withRouter(ShowPostSE)

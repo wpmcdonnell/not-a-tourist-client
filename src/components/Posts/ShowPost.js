@@ -32,7 +32,7 @@ class ShowPost extends Component {
   rerenderParentCallback () {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
-    }.bind(this), 2000)
+    }.bind(this), 1000)
     console.log('the state has been changed')
   }
 
