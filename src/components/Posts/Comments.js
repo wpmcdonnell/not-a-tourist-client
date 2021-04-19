@@ -112,7 +112,6 @@ class Comments extends Component {
   onBtnClick () {
     this.setState({ value: this.state.value + 1 })
     this.props.rerenderParentCallback()
-    console.log('button click')
   }
 
   render () {

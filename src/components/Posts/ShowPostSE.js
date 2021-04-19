@@ -33,14 +33,12 @@ class ShowPostSE extends Component {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
     }.bind(this), 1000)
-    console.log('the state has been changed')
   }
   // When this component mounts, make a GET
   // request using the ID param in the front-end route URL
   // and set the state to trigger a re-render
   componentDidMount () {
     const msgAlert = this.props.msgAlert
-    console.log(this.props.user)
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: `${apiUrl}/se-posts/${this.props.match.params.id}`,

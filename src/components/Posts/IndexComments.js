@@ -34,8 +34,6 @@ class IndexComments extends Component {
   componentDidMount () {
     const user = this.props.user
     // axios request will go here
-    console.log('Mounted!', this.state.comments)
-    console.log('Mounted!', this.props)
     // default to a GET request
     axios({
       url: `${apiUrl}/comments`,
@@ -45,7 +43,6 @@ class IndexComments extends Component {
       }
     })
       .then(response => {
-        console.log(response)
         // Set the state to hold the array of comments
         // this will cause a re-render
         this.setState({ comments: response.data.comments })
@@ -55,7 +52,6 @@ class IndexComments extends Component {
 
   // render is REQUIRED for any class component
   render () {
-    console.log(this.props)
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
     // Every component in react is independent & so it MUST

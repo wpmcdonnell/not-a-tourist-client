@@ -35,7 +35,6 @@ class IndexPosts extends Component {
     const user = this.props.user
     const msgAlert = this.props.msgAlert
     // axios request will go here
-    console.log('Mounted!', this.state.posts)
     // default to a GET request
     axios({
       url: `${apiUrl}/posts`,
@@ -45,7 +44,6 @@ class IndexPosts extends Component {
       }
     })
       .then(response => {
-        console.log(response)
         // Set the state to hold the array of posts
         // this will cause a re-render
         this.setState({ posts: response.data.posts })

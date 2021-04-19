@@ -33,12 +33,10 @@ class ShowPostNY extends Component {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
     }.bind(this), 1000)
-    console.log('the state has been changed')
   }
 
   componentDidMount () {
     const msgAlert = this.props.msgAlert
-    console.log(this.props.user)
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: `${apiUrl}/ny-posts/${this.props.match.params.id}`,

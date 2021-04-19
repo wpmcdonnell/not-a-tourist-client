@@ -34,7 +34,6 @@ class CreatePostNY extends Component {
 
   handleSubmit = (event) => {
     const user = this.props.user
-    console.log(user)
     // Prevent the page from refreshing!
     event.preventDefault()
     // axios.post(`${apiUrl}/posts`, {

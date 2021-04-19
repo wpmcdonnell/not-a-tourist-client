@@ -40,7 +40,6 @@ class UpdatePostNY extends Component {
   handleChange = (event) => {
     // BAD: will override the author
     // this.setState({ post: { title: 'value'} })
-    console.log(event)
     // Allows us to be able to access event.target
     // inside of the setState callback function
     event.persist()
@@ -57,8 +56,6 @@ class UpdatePostNY extends Component {
       // { title: 'Erons Boo' }
       // { 'name': 'value' }
       const updatedField = { [name]: value }
-      console.log(oldState, 'The old state')
-      console.log(updatedField, 'The updated field')
       // spread ... operator "spreads" out values in objects & arrays
       // ...[1, 2, 3, 4] => 1, 2, 3, 4
       // ...{ title: 'erons post', author: 'eron' } =>
