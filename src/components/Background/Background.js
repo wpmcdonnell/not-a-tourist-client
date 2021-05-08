@@ -23,11 +23,11 @@ class Background extends Component {
     // }
     return (
       <div style={backgroundStyle}>
-        <div className='col-4 pt-5 ml-1 box'>
+        <div className='col-4 pt-4 ml-1 box'>
           <h2 className=''>Welcome to </h2>
           <h2 className='ml-5 pl-5'> Not a Tourist</h2>
           <h5 className='mt-5'>Sign in or Sign up</h5>
-          <h5 className='ml-5 pl-5'>to access message board</h5>
+          <h5 className='ml-5 pb-4 pl-5'>to access message board</h5>
         </div>
       </div>
     )

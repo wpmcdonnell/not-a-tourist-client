@@ -47,9 +47,20 @@ class SignIn extends Component {
   render () {
     const { email, password } = this.state
 
+    const signInStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      backgroundImage: 'url("nlbg.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      height: '100vh',
+      color: 'White',
+      textShadow: '-2px 0 black, 0 3px black, 1px 0 black, 0 -1px black'
+    }
+
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+      <div style={signInStyle} className="row pb-5">
+        <div className="col-md-7 pt-5 pb-5 mx-auto box">
           <h3>Sign In</h3>
           <Form onSubmit={this.onSignIn}>
             <Form.Group controlId="email">
