@@ -5,3 +5,9 @@ $font:#f8edeb;
 $background-color:#ffe5d9;
 $text-primary:#ffd7ba;
 @import '~bootstrap/scss/bootstrap';
+
+.box {
+  position: relative;
+  background: rgba(255,255,255,.3);
+  box-shadow: 0 5px 5px rgba(0,0,0,.5)
+}
