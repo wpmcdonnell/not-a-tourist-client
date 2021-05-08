@@ -1,4 +1,7 @@
 # Not A Tourist
+#### Screen Shot
+
+![Screen Shot](./public/nat.png)
 
 ### Important Links
 -	Back-End-Repo: https://github.com/wpMcDonnell/not-a-tourist-api
@@ -7,7 +10,7 @@
 
 -	Deployed Client: https://wpmcdonnell.github.io/not-a-tourist-client/
 
-### Not A Tourist
+### Not A Tourist Summary
 "Not A Tourist" is a site where users can select a city or start threads in the general section in the form of posts. Once created, original creators of posts can update or delete their posts. All users may then comment on available posts. Ideally, users will post lists and information regaring travel to a particular city of choice.
 
 ### Set up Guide / Installation
@@ -49,10 +52,6 @@ First I created a wireframe and users stories to physically conceputalize how I 
 
 ### Unsolved Problems
 * I would like to add more styling
-
-#### Screen Shot
-
-![Screen Shot](./public/ssnat.png)
 
 #### ERD
 
