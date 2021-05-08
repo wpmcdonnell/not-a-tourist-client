@@ -14,7 +14,7 @@ class Background extends Component {
       // width: '100vw',
       color: 'White',
       textAlign: 'Center',
-      textShadow: '-2px 0 black, 0 3px black, 1px 0 black, 0 -1px black'
+      textShadow: '-2px 0 black, 0 2px black, 1px 0 black, 0 -1px black'
     }
 
     // const textStyle = {

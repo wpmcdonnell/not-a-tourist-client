@@ -84,23 +84,23 @@ class Cities extends Component {
           </Card.Body>
         </Card>
         <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="ny.png"/>
+          <Card.Img variant="top" src="se.png"/>
           <Card.Body>
             <Card.Title>Seattle, WA</Card.Title>
             <Button variant='primary' onClick={this.seattle}>SE</Button>
           </Card.Body>
         </Card>
         <Card className="mt-3 mr-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="ny.png"/>
+          <Card.Img variant="top" src="la.jpeg"/>
           <Card.Body>
             <Card.Title>Los Angeles, CA</Card.Title>
             <Button variant='primary' onClick={this.losAngeles}>LA</Button>
           </Card.Body>
         </Card>
         <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="ny.png"/>
+          <Card.Img variant="top" src="dc.jpeg"/>
           <Card.Body>
-            <Card.Title>Washington DC</Card.Title>
+            <Card.Title>Washington, DC</Card.Title>
             <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
           </Card.Body>
         </Card>

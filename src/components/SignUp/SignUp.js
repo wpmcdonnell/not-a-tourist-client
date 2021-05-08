@@ -57,7 +57,7 @@ class SignUp extends Component {
       backgroundPosition: 'center',
       height: '100vh',
       color: 'White',
-      textShadow: '-2px 0 black, 0 3px black, 1px 0 black, 0 -1px black'
+      textShadow: '-2px 0 black, 0 1px black, 1px 0 black, 0 -1px black'
     }
 
     return (
