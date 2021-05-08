@@ -3,9 +3,9 @@
 // to "index" the comments, then display those comments
 
 // 1. Imports
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+import { Card, Button } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
 // axios package (HTTP requests)
 // const axios = require('axios')
@@ -55,6 +55,13 @@ class Cities extends Component {
 
   // render is REQUIRED for any class component
   render () {
+    const cardContainerLayout = {
+      display: 'flex',
+      justifyContent: 'center',
+      flexFlow: 'row wrap',
+      alignItems: 'center'
+    }
+
     const { newYork, seattle, districtOfColumbia, losAngeles } = this.state
     if (newYork) {
       // if deleted is true, we can redirect
@@ -68,14 +75,36 @@ class Cities extends Component {
     }
 
     return (
-      <Fragment>
-        <div id='city-buttons'>
-          <Button variant='primary' onClick={this.newYork}>NY</Button>
-          <Button variant='primary' onClick={this.seattle}>Seattle</Button>
-          <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
-          <Button variant='primary' onClick={this.losAngeles}>LA</Button>
-        </div>
-      </Fragment>
+      <div className='col-md-6 mx-auto' style={cardContainerLayout}>
+        <Card className="mt-3 mr-4" style={{ width: '18rem' }}>
+          <Card.Img variant="top" src="ny.png"/>
+          <Card.Body>
+            <Card.Title>New York, New York</Card.Title>
+            <Button variant='primary' onClick={this.newYork}>NY</Button>
+          </Card.Body>
+        </Card>
+        <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
+          <Card.Img variant="top" src="ny.png"/>
+          <Card.Body>
+            <Card.Title>Seattle, WA</Card.Title>
+            <Button variant='primary' onClick={this.seattle}>SE</Button>
+          </Card.Body>
+        </Card>
+        <Card className="mt-3 mr-4" style={{ width: '18rem' }}>
+          <Card.Img variant="top" src="ny.png"/>
+          <Card.Body>
+            <Card.Title>Los Angeles, CA</Card.Title>
+            <Button variant='primary' onClick={this.losAngeles}>LA</Button>
+          </Card.Body>
+        </Card>
+        <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
+          <Card.Img variant="top" src="ny.png"/>
+          <Card.Body>
+            <Card.Title>Washington DC</Card.Title>
+            <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
+          </Card.Body>
+        </Card>
+      </div>
     )
   }
 }
