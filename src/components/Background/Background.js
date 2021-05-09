@@ -12,9 +12,8 @@ class Background extends Component {
       backgroundPosition: 'center',
       height: '100vh',
       // width: '100vw',
-      color: 'White',
-      textAlign: 'Center',
-      textShadow: '-2px 0 black, 0 2px black, 1px 0 black, 0 -1px black'
+      color: 'Black',
+      textAlign: 'Center'
     }
 
     // const textStyle = {
@@ -22,12 +21,12 @@ class Background extends Component {
     //
     // }
     return (
-      <div style={backgroundStyle}>
-        <div className='col-4 pt-4 ml-1 box'>
-          <h2 className=''>Welcome to </h2>
-          <h2 className='ml-5 pl-5'> Not a Tourist</h2>
-          <h5 className='mt-5'>Sign in or Sign up</h5>
-          <h5 className='ml-5 pb-4 pl-5'>to access message board</h5>
+      <div id="welcome-container" style={backgroundStyle} className="">
+        <div id='welcome' className='box offset-md-1 col-md-3'>
+          <h2 className='mt-2'>Welcome to </h2>
+          <h2 className=''> Not a Tourist</h2>
+          <h5 className=''>Sign in or Sign up</h5>
+          <h5 className='mr-2 ml-2'>to access message board</h5>
         </div>
       </div>
     )

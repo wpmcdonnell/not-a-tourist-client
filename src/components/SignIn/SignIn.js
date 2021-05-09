@@ -59,7 +59,7 @@ class SignIn extends Component {
     }
 
     return (
-      <div style={signInStyle} className="row pb-5">
+      <div id="sign-in-container" style={signInStyle} className="row">
         <div className="col-md-7 pt-5 pb-5 mx-auto box">
           <h3>Sign In</h3>
           <Form onSubmit={this.onSignIn}>
