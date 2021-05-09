@@ -76,7 +76,7 @@ class IndexComments extends Component {
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
             <li key={filteredComments._id}>
               <p>{filteredComments.owner}</p>
-              <p>{filteredComments.text}</p>
+              <p className='show-comment-text'>{filteredComments.text}</p>
             </li>
           ))}
         </ul>
