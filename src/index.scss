@@ -7,6 +7,7 @@ $text-primary:#ffd7ba;
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
+
 body {
   font-family: 'Permanent Marker', cursive;
 }
@@ -32,8 +33,6 @@ body {
   border-radius: 15px;
 }
 
-
-
 .box {
   position: relative;
   background: rgba(255,255,255,.6);
@@ -41,6 +40,10 @@ body {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
+}
+
+#gen-thread-index {
+    padding-bottom: 22rem;
 }
 
 @media (max-width:500px) {

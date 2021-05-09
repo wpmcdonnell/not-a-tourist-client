@@ -4,11 +4,11 @@ import Navbar from 'react-bootstrap/Navbar'
 
 const authenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#change-password">Change Password</Nav.Link>
-    <Nav.Link className="link-text" href="#create-post">Create General Topic</Nav.Link>
-    <Nav.Link className="link-text" href="#posts">Geneneral Threads</Nav.Link>
-    <Nav.Link className="link-text" href="#cities">Cities</Nav.Link>
-    <Nav.Link href="#sign-out">Sign Out</Nav.Link>
+    <Nav.Link className="link-text text-white" href="#create-post">Create General Topic</Nav.Link>
+    <Nav.Link className="link-text text-white" href="#posts">Geneneral Threads</Nav.Link>
+    <Nav.Link className="link-text text-white" href="#cities">Cities</Nav.Link>
+    <Nav.Link className="text-white" href="#change-password">Change Password</Nav.Link>
+    <Nav.Link className="text-white" href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
 )
 
@@ -33,7 +33,7 @@ const Header = ({ user }) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
+        { user && <span className="navbar-text mr-5 pr-5 text-white">Welcome, {user.email}</span>}
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
     </Navbar.Collapse>

@@ -69,6 +69,11 @@ class CreatePost extends Component {
   // }
 
   render () {
+    const createPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '3rem'
+    }
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
       return <Redirect to={`/posts/${this.state.createdId}`}/>
@@ -76,24 +81,28 @@ class CreatePost extends Component {
 
     return (
       <Fragment>
-        <h1>Create A New Post for Gen Thread</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Post Title"
-            value={this.state.post.title}
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="list"
-            placeholder="Post List"
-            value={this.state.post.list}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Create New Post</button>
-        </form>
+        <div style={createPostStyle} className=''>
+          <div className='col-10 mx-auto'>
+            <h1>Create A New Post for Gen Thread</h1>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                name="title"
+                placeholder="Post Title"
+                value={this.state.post.title}
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                name="list"
+                placeholder="Post List"
+                value={this.state.post.list}
+                onChange={this.handleChange}
+              />
+              <button type="submit">Create New Post</button>
+            </form>
+          </div>
+        </div>
       </Fragment>
     )
   }

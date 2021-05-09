@@ -58,6 +58,12 @@ class IndexPosts extends Component {
 
   // render is REQUIRED for any class component
   render () {
+    const indexPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '3rem',
+      height: '100vh'
+    }
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
     // Every component in react is independent & so it MUST
@@ -90,9 +96,13 @@ class IndexPosts extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <h1>GENERAL TOPICS</h1>
-        <h3>Check out all the sweet posts</h3>
-        {postsJsx}
+        <div id="gen-thread-index" style={indexPostStyle}>
+          <div className='col-6 mx-auto'>
+            <h1>GENERAL TOPICS</h1>
+            <h3>Check out all the sweet posts</h3>
+            {postsJsx}
+          </div>
+        </div>
       </Fragment>
     )
   }
