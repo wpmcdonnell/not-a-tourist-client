@@ -69,6 +69,11 @@ class CreatePostNY extends Component {
   // }
 
   render () {
+    const createPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '3rem'
+    }
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
       return <Redirect to={`/la-posts/${this.state.createdId}`}/>
@@ -76,24 +81,31 @@ class CreatePostNY extends Component {
 
     return (
       <Fragment>
-        <h1>I took the 405 to San Vicente and LA over NY, amiright?</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Post Title"
-            value={this.state.post.title}
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="list"
-            placeholder="Post List"
-            value={this.state.post.list}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Create New Post</button>
-        </form>
+        <div style={createPostStyle} className=''>
+          <div className='col-10 mx-auto'>
+            <h1>I took the 405 and it was not a good idea...</h1>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                className='form-control mb-2'
+                type="text"
+                name="title"
+                placeholder="Post Title"
+                value={this.state.post.title}
+                onChange={this.handleChange}
+              />
+              <textarea
+                className="form-control mb-2"
+                rows='10'
+                type="text"
+                name="list"
+                placeholder="Post List"
+                value={this.state.post.list}
+                onChange={this.handleChange}
+              />
+              <button className='btn btn-primary' type="submit">Create New Post</button>
+            </form>
+          </div>
+        </div>
       </Fragment>
     )
   }

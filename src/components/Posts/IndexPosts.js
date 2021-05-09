@@ -61,8 +61,7 @@ class IndexPosts extends Component {
     const indexPostStyle = {
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '3rem',
-      height: '100vh'
+      paddingTop: '3rem'
     }
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
@@ -97,7 +96,7 @@ class IndexPosts extends Component {
     return (
       <Fragment>
         <div id="gen-thread-index" style={indexPostStyle}>
-          <div className='col-6 mx-auto'>
+          <div className='col-5 mx-auto'>
             <h1>GENERAL TOPICS</h1>
             <h3>Check out all the sweet posts</h3>
             {postsJsx}

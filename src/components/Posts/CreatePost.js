@@ -86,20 +86,24 @@ class CreatePost extends Component {
             <h1>Create A New Post for Gen Thread</h1>
             <form onSubmit={this.handleSubmit}>
               <input
+                className='form-control mb-2'
+
                 type="text"
                 name="title"
                 placeholder="Post Title"
                 value={this.state.post.title}
                 onChange={this.handleChange}
               />
-              <input
+              <textarea
+                className="form-control mb-2"
+                rows='10'
                 type="text"
                 name="list"
                 placeholder="Post List"
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button type="submit">Create New Post</button>
+              <button className='btn btn-primary' type="submit">Create New Post</button>
             </form>
           </div>
         </div>
