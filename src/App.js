@@ -26,10 +26,14 @@ import IndexPostsNY from './components/Posts/IndexPostsNY'
 import IndexPostsSE from './components/Posts/IndexPostsSE'
 import IndexPostsLA from './components/Posts/IndexPostsLA'
 import IndexPostsDC from './components/Posts/IndexPostsDC'
+import IndexPostsPAR from './components/Posts/IndexPostsPAR'
+import IndexPostsTYO from './components/Posts/IndexPostsTYO'
 import CreatePostNY from './components/Posts/CreatePostNY'
 import CreatePostSE from './components/Posts/CreatePostSE'
 import CreatePostLA from './components/Posts/CreatePostLA'
 import CreatePostDC from './components/Posts/CreatePostDC'
+import CreatePostTYO from './components/Posts/CreatePostTYO'
+import CreatePostPAR from './components/Posts/CreatePostPAR'
 import Background from './components/Background/Background'
 
 class App extends Component {
@@ -105,6 +109,12 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-post-dc' render={() => (
             <CreatePostDC msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} path='/create-post-paris' render={() => (
+            <CreatePostPAR msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-post-tokyo' render={() => (
+            <CreatePostTYO msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/posts/:id' render={() => (
             <ShowPost msgAlert={this.msgAlert} user={user} />
           )} />
@@ -152,6 +162,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/se-posts' render={() => (
             <IndexPostsSE msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/paris-posts' render={() => (
+            <IndexPostsPAR msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/tokyo-posts' render={() => (
+            <IndexPostsTYO msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

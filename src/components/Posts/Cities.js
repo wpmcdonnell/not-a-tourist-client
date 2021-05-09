@@ -28,7 +28,9 @@ class Cities extends Component {
       ny: false,
       seattle: false,
       districtOfColumbia: false,
-      losAngeles: false
+      losAngeles: false,
+      tokyo: false,
+      paris: false
     }
   }
 
@@ -48,6 +50,14 @@ class Cities extends Component {
     return this.setState({ losAngeles: true })
   }
 
+  paris = (event) => {
+    return this.setState({ paris: true })
+  }
+
+  tokyo = (event) => {
+    return this.setState({ tokyo: true })
+  }
+
   // componentDidMount will be run when the component finished mounting
   // AFTER the FIRST render
   componentDidMount () {
@@ -57,12 +67,12 @@ class Cities extends Component {
   render () {
     const cardContainerLayout = {
       display: 'flex',
-      justifyContent: 'center',
-      flexFlow: 'row wrap',
-      alignItems: 'center'
+      alignItems: 'baseline',
+      justifyContent: 'space-around',
+      alignContent: 'center'
     }
 
-    const { newYork, seattle, districtOfColumbia, losAngeles } = this.state
+    const { newYork, seattle, districtOfColumbia, losAngeles, tokyo, paris } = this.state
     if (newYork) {
       // if deleted is true, we can redirect
       return <Redirect to="/ny-posts"/>
@@ -72,38 +82,58 @@ class Cities extends Component {
       return <Redirect to="/dc-posts"/>
     } else if (losAngeles) {
       return <Redirect to="/la-posts"/>
+    } else if (tokyo) {
+      return <Redirect to="/tokyo-posts"/>
+    } else if (paris) {
+      return <Redirect to="/paris-posts"/>
     }
 
     return (
-      <div className='col-md-6 mx-auto' style={cardContainerLayout}>
-        <Card className="mt-3 mr-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="ny.png"/>
-          <Card.Body>
-            <Card.Title>New York, New York</Card.Title>
-            <Button variant='primary' onClick={this.newYork}>NY</Button>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="se.png"/>
-          <Card.Body>
-            <Card.Title>Seattle, WA</Card.Title>
-            <Button variant='primary' onClick={this.seattle}>SE</Button>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 mr-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="la.jpeg"/>
-          <Card.Body>
-            <Card.Title>Los Angeles, CA</Card.Title>
-            <Button variant='primary' onClick={this.losAngeles}>LA</Button>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 ml-4" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="dc.jpeg"/>
-          <Card.Body>
-            <Card.Title>Washington, DC</Card.Title>
-            <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
-          </Card.Body>
-        </Card>
+      <div className='pt-5'>
+        <div className='row col-lg-9 mx-auto'style={cardContainerLayout}>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="ny.png"/>
+            <Card.Body>
+              <Card.Title>New York, New York</Card.Title>
+              <Button variant='primary' onClick={this.newYork}>NY</Button>
+            </Card.Body>
+          </Card>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="se.png"/>
+            <Card.Body>
+              <Card.Title>Seattle, WA</Card.Title>
+              <Button variant='primary' onClick={this.seattle}>SE</Button>
+            </Card.Body>
+          </Card>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="la.jpeg"/>
+            <Card.Body>
+              <Card.Title>Los Angeles, CA</Card.Title>
+              <Button variant='primary' onClick={this.losAngeles}>LA</Button>
+            </Card.Body>
+          </Card>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="dc.jpeg"/>
+            <Card.Body>
+              <Card.Title>Washington, DC</Card.Title>
+              <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
+            </Card.Body>
+          </Card>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="dc.jpeg"/>
+            <Card.Body>
+              <Card.Title>Tokyo, JP </Card.Title>
+              <Button variant='primary' onClick={this.tokyo}>TYO</Button>
+            </Card.Body>
+          </Card>
+          <Card className="mb-5" style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="dc.jpeg"/>
+            <Card.Body>
+              <Card.Title>Paris, FR</Card.Title>
+              <Button variant='primary' onClick={this.paris}>PAR</Button>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     )
   }
