@@ -49,7 +49,6 @@ class IndexComments extends Component {
       })
       .catch(console.error)
   }
-
   // render is REQUIRED for any class component
   render () {
     // 1 thing the render method does is "render" JSX
@@ -75,7 +74,7 @@ class IndexComments extends Component {
         <ul>
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
             <li key={filteredComments._id}>
-              <p>{filteredComments.owner}</p>
+              <p className='owner'>{filteredComments.owner}</p>
               <p className='show-comment-text'>{filteredComments.text}</p>
             </li>
           ))}

@@ -52,6 +52,9 @@ textarea, .show-post-text, .show-comment-text {
   font-family: 'Open Sans', sans-serif;
 }
 
+.owner {
+  color: #fad2e1;
+}
 @media (max-width:500px) {
   #sign-in-container {
     padding-left: 1rem;

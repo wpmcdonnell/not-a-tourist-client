@@ -13,8 +13,10 @@ class SignUp extends Component {
 
     this.state = {
       email: '',
+      username: '',
       password: '',
       passwordConfirmation: ''
+
     }
   }
 
@@ -47,7 +49,7 @@ class SignUp extends Component {
   }
 
   render () {
-    const { email, password, passwordConfirmation } = this.state
+    const { email, password, passwordConfirmation, username } = this.state
 
     const signUpStyle = {
       display: 'flex',
@@ -73,6 +75,17 @@ class SignUp extends Component {
                 name="email"
                 value={email}
                 placeholder="Enter email"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="username">
+              <Form.Label>Spirit Name</Form.Label>
+              <Form.Control
+                required
+                name="username"
+                value={username}
+                type="text"
+                placeholder="What do thee call thy self"
                 onChange={this.handleChange}
               />
             </Form.Group>
