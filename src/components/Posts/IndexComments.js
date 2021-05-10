@@ -71,14 +71,14 @@ class IndexComments extends Component {
     } else {
       // we have comments! display them
       commentsJsx = (
-        <ul>
+        <p className='ml-2'>
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
-            <li key={filteredComments._id}>
+            <p key={filteredComments._id}>
               <p className='owner'>{filteredComments.ownerName}</p>
               <p className='show-comment-text'>{filteredComments.text}</p>
-            </li>
+            </p>
           ))}
-        </ul>
+        </p>
       )
     }
 

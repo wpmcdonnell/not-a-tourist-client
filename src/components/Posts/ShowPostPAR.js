@@ -135,7 +135,7 @@ class ShowPostPAR extends Component {
     const showPostStyle = {
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '2rem'
+      paddingTop: '1rem'
     }
     // create a local variable `post` and set it's value
     // to the value of the `post` key on `this.state`
