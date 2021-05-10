@@ -5,7 +5,7 @@ import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
 // class
-class UpdatePost extends Component {
+class UpdatePostSE extends Component {
   constructor () {
     super()
 
@@ -24,7 +24,7 @@ class UpdatePost extends Component {
     // so this is a SHOW request (GET) to /posts/:id
     // This is not the update
     axios({
-      url: `${apiUrl}/la-posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/se-posts/${this.props.match.params.id}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
@@ -75,7 +75,7 @@ class UpdatePost extends Component {
 
     axios({
       method: 'PATCH',
-      url: `${apiUrl}/la-posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/se-posts/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
       },
@@ -95,7 +95,7 @@ class UpdatePost extends Component {
 
   render () {
     if (this.state.updated) {
-      return <Redirect to={'/la-posts/' + this.props.match.params.id}/>
+      return <Redirect to={'/se-posts/' + this.props.match.params.id}/>
     }
     return (
       <Fragment>
@@ -123,4 +123,4 @@ class UpdatePost extends Component {
 }
 
 // exports
-export default withRouter(UpdatePost)
+export default withRouter(UpdatePostSE)

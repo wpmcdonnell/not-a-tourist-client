@@ -5,7 +5,7 @@ import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
 // class
-class UpdatePost extends Component {
+class UpdatePostPAR extends Component {
   constructor () {
     super()
 
@@ -24,7 +24,7 @@ class UpdatePost extends Component {
     // so this is a SHOW request (GET) to /posts/:id
     // This is not the update
     axios({
-      url: `${apiUrl}/dc-posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/paris-posts/${this.props.match.params.id}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
@@ -75,7 +75,7 @@ class UpdatePost extends Component {
 
     axios({
       method: 'PATCH',
-      url: `${apiUrl}/dc-posts/${this.props.match.params.id}`,
+      url: `${apiUrl}/paris-posts/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
       },
@@ -95,11 +95,11 @@ class UpdatePost extends Component {
 
   render () {
     if (this.state.updated) {
-      return <Redirect to={'/dc-posts/' + this.props.match.params.id}/>
+      return <Redirect to={'/paris-posts/' + this.props.match.params.id}/>
     }
     return (
       <Fragment>
-        <h1>Update a post</h1>
+        <h1>Ch-ch-changes...make dem changes</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -108,7 +108,9 @@ class UpdatePost extends Component {
             value={this.state.post.title}
             onChange={this.handleChange}
           />
-          <input
+          <textarea
+            className="form-control mb-2"
+            rows='10'
             type="text"
             name="list"
             placeholder="Post list"
@@ -123,4 +125,4 @@ class UpdatePost extends Component {
 }
 
 // exports
-export default withRouter(UpdatePost)
+export default withRouter(UpdatePostPAR)

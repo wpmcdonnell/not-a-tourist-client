@@ -15,12 +15,16 @@ import ShowPostNY from './components/Posts/ShowPostNY'
 import ShowPostSE from './components/Posts/ShowPostSE'
 import ShowPostLA from './components/Posts/ShowPostLA'
 import ShowPostDC from './components/Posts/ShowPostDC'
+import ShowPostPAR from './components/Posts/ShowPostPAR'
+import ShowPostTYO from './components/Posts/ShowPostTYO'
 import IndexPosts from './components/Posts/IndexPosts'
-import UpdatePost from './components/Posts/UpdatePosts'
-import UpdatePostNY from './components/Posts/UpdatePostsNY'
-import UpdatePostDC from './components/Posts/UpdatePostsDC'
-import UpdatePostLA from './components/Posts/UpdatePostsLA'
-import UpdatePostSE from './components/Posts/UpdatePostsSE'
+import UpdatePost from './components/Posts/UpdatePost'
+import UpdatePostNY from './components/Posts/UpdatePostNY'
+import UpdatePostDC from './components/Posts/UpdatePostDC'
+import UpdatePostLA from './components/Posts/UpdatePostLA'
+import UpdatePostSE from './components/Posts/UpdatePostSE'
+import UpdatePostPAR from './components/Posts/UpdatePostPAR'
+import UpdatePostTYO from './components/Posts/UpdatePostTYO'
 import Cities from './components/Posts/Cities'
 import IndexPostsNY from './components/Posts/IndexPostsNY'
 import IndexPostsSE from './components/Posts/IndexPostsSE'
@@ -130,6 +134,12 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/la-posts/:id' render={() => (
             <ShowPostLA msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/paris-posts/:id' render={() => (
+            <ShowPostPAR msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/tokyo-posts/:id' render={() => (
+            <ShowPostTYO msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/posts' render={() => (
             <IndexPosts msgAlert={this.msgAlert} user={user} />
           )} />
@@ -147,6 +157,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/se-posts/:id/update' render={() => (
             <UpdatePostSE msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/paris-posts/:id/update' render={() => (
+            <UpdatePostPAR msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/tokyo-posts/:id/update' render={() => (
+            <UpdatePostTYO msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/cities/' render={() => (
             <Cities msgAlert={this.msgAlert} user={user} />
