@@ -14,7 +14,8 @@ class UpdatePostDC extends Component {
         title: '',
         list: ''
       },
-      updated: false
+      updated: false,
+      cancel: false
     }
   }
 
@@ -93,30 +94,50 @@ class UpdatePostDC extends Component {
       .catch(console.error)
   }
 
+  cancel = (event) => {
+    return this.setState({ cancel: true })
+  }
+
   render () {
-    if (this.state.updated) {
+    const updatePostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '3rem'
+    }
+
+    const { cancel } = this.state
+
+    if (this.state.updated || cancel) {
       return <Redirect to={'/dc-posts/' + this.props.match.params.id}/>
     }
     return (
       <Fragment>
-        <h1>Update a post</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Post Title"
-            value={this.state.post.title}
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="list"
-            placeholder="Post list"
-            value={this.state.post.list}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Update</button>
-        </form>
+        <div style={updatePostStyle} className=''>
+          <div className='col-10 mx-auto mb-5'>
+            <h1>Ch-ch-changes... make dem changes</h1>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                className='form-control mb-2'
+                type="text"
+                name="title"
+                placeholder="Post Title"
+                value={this.state.post.title}
+                onChange={this.handleChange}
+              />
+              <textarea
+                className="form-control mb-2"
+                rows='10'
+                type="text"
+                name="list"
+                placeholder="Post list"
+                value={this.state.post.list}
+                onChange={this.handleChange}
+              />
+              <button className='btn btn-primary mb-4' type="submit">Update</button>
+            </form>
+            <button className='btn btn-primary' onClick={this.cancel}>Cancel</button>
+          </div>
+        </div>
       </Fragment>
     )
   }
