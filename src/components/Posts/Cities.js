@@ -120,14 +120,14 @@ class Cities extends Component {
             </Card.Body>
           </Card>
           <Card className="mb-5" style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="dc.jpeg"/>
+            <Card.Img variant="top" src="tokyo.jpeg"/>
             <Card.Body>
               <Card.Title>Tokyo, JP </Card.Title>
               <Button variant='primary' onClick={this.tokyo}>TYO</Button>
             </Card.Body>
           </Card>
           <Card className="mb-5" style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="dc.jpeg"/>
+            <Card.Img variant="top" src="paris.jpeg"/>
             <Card.Body>
               <Card.Title>Paris, FR</Card.Title>
               <Button variant='primary' onClick={this.paris}>PAR</Button>

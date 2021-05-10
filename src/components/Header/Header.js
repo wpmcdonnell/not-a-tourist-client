@@ -26,7 +26,7 @@ const unauthenticatedOptions = (
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#">
+    <Navbar.Brand>
       NOT A TOURIST
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
