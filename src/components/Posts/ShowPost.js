@@ -32,7 +32,7 @@ class ShowPost extends Component {
   rerenderParentCallback () {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
-    }.bind(this), 1000)
+    }.bind(this), 500)
   }
 
   // When this component mounts, make a GET

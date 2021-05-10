@@ -105,7 +105,8 @@ class IndexPostsDC extends Component {
       <Fragment>
         <div style={indexPostStyle}>
           <div className='col-10 mx-auto mb-5'>
-            <h1>DC NATION <Button variant='primary' onClick={this.create}>Create a Post</Button> </h1>
+            <h1>DC NATION</h1>
+            <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3>Check out all the sweet posts</h3>
             {postsJsx}
           </div>

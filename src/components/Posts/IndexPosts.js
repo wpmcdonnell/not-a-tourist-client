@@ -108,7 +108,7 @@ class IndexPosts extends Component {
         <div style={indexPostStyle}>
           <div className='col-10 mx-auto mb-5'>
             <h1>GENERAL TOPICS</h1>
-            <Button variant='primary' onClick={this.create}>Create a Post</Button>
+            <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3>Check out all the sweet posts</h3>
             {postsJsx}
           </div>
