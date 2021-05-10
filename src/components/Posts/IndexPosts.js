@@ -5,7 +5,8 @@
 // 1. Imports
 import React, { Component, Fragment } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -25,7 +26,8 @@ class IndexPosts extends Component {
     this.state = {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
-      posts: null
+      posts: null,
+      create: false
     }
   }
 
@@ -56,13 +58,19 @@ class IndexPosts extends Component {
       .catch(console.error)
   }
 
+  create = (event) => {
+    return this.setState({ create: true })
+  }
+
   // render is REQUIRED for any class component
   render () {
     const indexPostStyle = {
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '3rem'
+      paddingTop: '2rem'
     }
+
+    const { create } = this.state
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
     // Every component in react is independent & so it MUST
@@ -73,7 +81,9 @@ class IndexPosts extends Component {
     // then display that variable in the return
     let postsJsx = ''
 
-    if (!this.state.posts) {
+    if (create) {
+      return <Redirect to={'/create-post'}/>
+    } else if (!this.state.posts) {
       // if the posts state is null
       postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
@@ -95,9 +105,10 @@ class IndexPosts extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <div id="gen-thread-index" style={indexPostStyle}>
-          <div className='col-5 mx-auto'>
+        <div style={indexPostStyle}>
+          <div className='col-10 mx-auto mb-5'>
             <h1>GENERAL TOPICS</h1>
+            <Button variant='primary' onClick={this.create}>Create a Post</Button>
             <h3>Check out all the sweet posts</h3>
             {postsJsx}
           </div>

@@ -119,9 +119,9 @@ class Comments extends Component {
       <Fragment>
         <div>
           <form onSubmit={this.handleSubmit}>
-            <textarea className='form-control' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
+            <textarea className='form-control mb-2' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
             </textarea>
-            <Button type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
+            <Button className='mb-2' type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
           </form>
         </div>
       </Fragment>

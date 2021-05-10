@@ -74,7 +74,7 @@ class IndexComments extends Component {
         <ul>
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
             <li key={filteredComments._id}>
-              <p className='owner'>{filteredComments.owner}</p>
+              <p className='owner'>{filteredComments.ownerName}</p>
               <p className='show-comment-text'>{filteredComments.text}</p>
             </li>
           ))}
@@ -85,7 +85,7 @@ class IndexComments extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <h1>COMMENTS</h1>
+        <h2>COMMENTS</h2>
         {commentsJsx}
       </Fragment>
     )

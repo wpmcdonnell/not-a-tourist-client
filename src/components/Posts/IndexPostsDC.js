@@ -63,6 +63,11 @@ class IndexPostsDC extends Component {
 
   // render is REQUIRED for any class component
   render () {
+    const indexPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '2rem'
+    }
     const { create } = this.state
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
@@ -78,7 +83,7 @@ class IndexPostsDC extends Component {
       return <Redirect to={'/create-post-dc'}/>
     } else if (!this.state.posts) {
       // if the posts state is null
-      postsJsx = <p>No posts it seems?</p>
+      postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
       // if posts array has length of 0 it's empty
       postsJsx = <p>No posts! Go create some.</p>
@@ -98,10 +103,13 @@ class IndexPostsDC extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <Button variant='primary' onClick={this.create}>Create a Post</Button>
-        <h1>DC NATION</h1>
-        <h3>Check out all the sweet posts</h3>
-        {postsJsx}
+        <div style={indexPostStyle}>
+          <div className='col-10 mx-auto mb-5'>
+            <h1>DC NATION <Button variant='primary' onClick={this.create}>Create a Post</Button> </h1>
+            <h3>Check out all the sweet posts</h3>
+            {postsJsx}
+          </div>
+        </div>
       </Fragment>
     )
   }

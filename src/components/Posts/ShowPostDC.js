@@ -141,6 +141,11 @@ class ShowPostDC extends Component {
   }
 
   render () {
+    const showPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '2rem'
+    }
     // create a local variable `post` and set it's value
     // to the value of the `post` key on `this.state`
     const { post, deleted, toUpdate } = this.state
@@ -159,10 +164,10 @@ class ShowPostDC extends Component {
     } else {
       // we have a post! Display it
       postJsx = (
-        <div>
+        <div className='mb-2 mx-auto'>
           <h4>- {post.title}</h4>
           <p className='show-post-text'>{post.list}</p>
-          {post.owner === this.props.user._id && <Button variant='primary' onClick={this.deletePost}>Delete Me</Button>}
+          {post.owner === this.props.user._id && <Button className='mr-2' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
           {post.owner === this.props.user._id && <Button variant='primary' onClick={this.update}>Update Me</Button>}
         </div>
       )
@@ -170,12 +175,15 @@ class ShowPostDC extends Component {
 
     return (
       <Fragment>
-        <h1>DC BABY</h1>
-        {postJsx}
-        <Comments key={this.state.commentValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
-        <IndexComments key={this.state.indexValue} {...this.props} />
+        <div style={showPostStyle}>
+          <div className='col-10 mx-auto mb-5'>
+            <h1>DC BABY</h1>
+            {postJsx}
+            <Comments key={this.state.commentValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
+            <IndexComments key={this.state.indexValue} {...this.props} />
+          </div>
+        </div>
       </Fragment>
-
     )
   }
 }

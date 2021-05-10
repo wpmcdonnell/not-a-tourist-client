@@ -63,6 +63,11 @@ class IndexPostsNY extends Component {
 
   // render is REQUIRED for any class component
   render () {
+    const indexPostStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      paddingTop: '2rem'
+    }
     const { create } = this.state
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
@@ -98,10 +103,14 @@ class IndexPostsNY extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <Button variant='primary' onClick={this.create}>Create a Post</Button>
-        <h1>New York, New York</h1>
-        <h3>Check out all the sweet posts</h3>
-        {postsJsx}
+        <div style={indexPostStyle}>
+          <div className='col-10 mx-auto mb-5'>
+            <h1>New York, New York</h1>
+            <Button variant='primary' onClick={this.create}>Create a Post</Button>
+            <h3>Check out all the sweet posts</h3>
+            {postsJsx}
+          </div>
+        </div>
       </Fragment>
     )
   }
