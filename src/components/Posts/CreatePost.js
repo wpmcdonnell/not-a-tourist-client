@@ -103,7 +103,7 @@ class CreatePost extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary' type="submit">Create New Post</button>
+              <button className='btn btn-primary mb-5' type="submit">Create New Post</button>
             </form>
           </div>
         </div>

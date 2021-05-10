@@ -159,8 +159,8 @@ class ShowPostSE extends Component {
       // we have a post! Display it
       postJsx = (
         <div>
-          <h4>{post.title}</h4>
-          <p>{post.list}</p>
+          <h4>- {post.title}</h4>
+          <p className='show-post-text'>{post.list}</p>
           {post.owner === this.props.user._id && <Button variant='primary' onClick={this.deletePost}>Delete Me</Button>}
           {post.owner === this.props.user._id && <Button variant='primary' onClick={this.update}>Update Me</Button>}
         </div>

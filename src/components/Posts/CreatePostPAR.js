@@ -83,7 +83,7 @@ class CreatePostPAR extends Component {
       <Fragment>
         <div style={createPostStyle} className=''>
           <div className='col-10 mx-auto'>
-            <h1>We will always have Paris</h1>
+            <h1>We&apos;ll always have Paris</h1>
             <form onSubmit={this.handleSubmit}>
               <input
                 className='form-control mb-2'
@@ -102,7 +102,7 @@ class CreatePostPAR extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary' type="submit">Create New Post</button>
+              <button className='btn btn-primary mb-5' type="submit">Create New Post</button>
             </form>
           </div>
         </div>
