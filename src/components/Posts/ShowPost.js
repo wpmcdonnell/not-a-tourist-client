@@ -32,14 +32,13 @@ class ShowPost extends Component {
   rerenderParentCallback () {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
-    }.bind(this), 500)
+    }.bind(this), 250)
   }
 
   // When this component mounts, make a GET
   // request using the ID param in the front-end route URL
   // and set the state to trigger a re-render
   componentDidMount () {
-    const msgAlert = this.props.msgAlert
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: `${apiUrl}/posts/${this.props.match.params.id}`,
@@ -54,11 +53,6 @@ class ShowPost extends Component {
         // setting the state will force a re-render
         this.setState({ post: response.data.post })
       })
-      .then(() => msgAlert({
-        heading: 'Post Selected',
-        message: 'Probably some good info in this one!',
-        variant: 'success'
-      }))
       .catch(console.error)
   }
 

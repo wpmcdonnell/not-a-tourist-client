@@ -32,11 +32,10 @@ class ShowPostTYO extends Component {
   rerenderParentCallback () {
     setTimeout(function () {
       this.setState({ commentValue: this.state.commentValue + 1, indexValue: this.state.indexValue + 1 })
-    }.bind(this), 500)
+    }.bind(this), 250)
   }
 
   componentDidMount () {
-    const msgAlert = this.props.msgAlert
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: `${apiUrl}/tokyo-posts/${this.props.match.params.id}`,
@@ -51,11 +50,6 @@ class ShowPostTYO extends Component {
         // setting the state will force a re-render
         this.setState({ post: response.data.post })
       })
-      .then(() => msgAlert({
-        heading: 'Post Selected',
-        message: 'Probably some good info in this one!',
-        variant: 'success'
-      }))
       .catch(console.error)
   }
 

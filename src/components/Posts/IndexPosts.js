@@ -35,7 +35,6 @@ class IndexPosts extends Component {
   // AFTER the FIRST render
   componentDidMount () {
     const user = this.props.user
-    const msgAlert = this.props.msgAlert
     // axios request will go here
     // default to a GET request
     axios({
@@ -50,11 +49,6 @@ class IndexPosts extends Component {
         // this will cause a re-render
         this.setState({ posts: response.data.posts })
       })
-      .then(() => msgAlert({
-        heading: 'Woah, look at all these posts...',
-        message: 'There is bound to be something here you are looking for',
-        variant: 'success'
-      }))
       .catch(console.error)
   }
 

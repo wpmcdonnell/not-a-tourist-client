@@ -13,7 +13,7 @@ class AutoDismissAlert extends React.Component {
   }
 
   componentDidMount () {
-    this.timeoutId = setTimeout(this.handleClose, 2100)
+    this.timeoutId = setTimeout(this.handleClose, 2000)
   }
 
   componentWillUnmount () {
