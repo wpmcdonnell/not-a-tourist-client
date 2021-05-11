@@ -77,7 +77,7 @@ class IndexPostsNY extends Component {
       return <Redirect to={'/create-post-ny'}/>
     } else if (!this.state.posts) {
       // if the posts state is null
-      postsJsx = <p>Hmm seems like there are no posts?</p>
+      postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
       // if posts array has length of 0 it's empty
       postsJsx = <p>No posts! Go create some.</p>
