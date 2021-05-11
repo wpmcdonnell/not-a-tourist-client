@@ -1,7 +1,4 @@
 # Not A Tourist
-#### Screen Shot
-
-![Screen Shot](./public/nat.png)
 
 ### Important Links
 -	Back-End-Repo: https://github.com/wpMcDonnell/not-a-tourist-api
@@ -9,6 +6,14 @@
 -	Deployed API: https://not-a-tourist-api.herokuapp.com
 
 -	Deployed Client: https://wpmcdonnell.github.io/not-a-tourist-client/
+
+#### Screen Shots
+
+![Greeting](./public/nat.png)
+
+![Cities](./public/cities.png)
+
+![Post display](./public/typost.png)
 
 ### Not A Tourist Summary
 "Not A Tourist" is a site where users can select a city or start threads in the general section in the form of posts. Once created, original creators of posts can update or delete their posts. All users may then comment on available posts. Ideally, users will post lists and information regaring travel to a particular city of choice.
@@ -42,6 +47,7 @@ First I created a wireframe and users stories to physically conceputalize how I 
 
 
 ### Technologies Used
+- Bootstrap
 -	HTML5
 -	SCSS
 -	React
@@ -51,7 +57,8 @@ First I created a wireframe and users stories to physically conceputalize how I 
 -	Node.js
 
 ### Unsolved Problems
-* I would like to add more styling
+* I want to add time stamps and up votes and down votes, as well as a search bar for post's inside each city
+* I would also like to create a AWS bucket to upload images for fashion, so user's know the fashion styles for going out in that particular city
 
 #### ERD
 
