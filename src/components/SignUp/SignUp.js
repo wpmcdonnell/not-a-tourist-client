@@ -85,7 +85,7 @@ class SignUp extends Component {
                 name="username"
                 value={username}
                 type="text"
-                placeholder="What do thee call thy self"
+                placeholder="What do thou call thy self"
                 onChange={this.handleChange}
               />
             </Form.Group>

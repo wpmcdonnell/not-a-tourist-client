@@ -13,6 +13,7 @@ import axios from 'axios'
 // apiUrl from apiConfig.js
 import apiUrl from './../../apiConfig'
 import moment from 'moment'
+import Linkify from 'react-linkify'
 
 // 2. The class
 class IndexComments extends Component {
@@ -113,9 +114,9 @@ class IndexComments extends Component {
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
             <p key={filteredComments._id}>
               <p className='owner'>{filteredComments.ownerName} <p className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </p></p>
-              <p className='show-comment-text ml-3'>{filteredComments.text}</p>
+              <p className='show-comment-text ml-3'><Linkify>{filteredComments.text}</Linkify></p>
               {filteredComments.owner === this.props.user._id && <a
-                href='javascript:;' className='d-flex justify-content-end mr-2' id={filteredComments._id} onClick={this.deleteComment}>Delete
+                href='javascript:;' className='delete-comment-link d-flex justify-content-end mr-2' id={filteredComments._id} onClick={this.deleteComment}>Delete
               </a>
               }
             </p>

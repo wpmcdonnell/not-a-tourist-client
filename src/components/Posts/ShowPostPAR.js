@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 import moment from 'moment'
+import Linkify from 'react-linkify'
 
 // 2. Class
 class ShowPostPAR extends Component {
@@ -161,7 +162,7 @@ class ShowPostPAR extends Component {
           <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
           <h4>- {post.title}</h4>
           <Card className='mt-2 mb-2 post-box'>
-            <Card.Body className='show-post-text'>{post.list}</Card.Body>
+            <Card.Body className='show-post-text'><Linkify>{post.list}</Linkify></Card.Body>
           </Card>
           {post.owner === this.props.user._id && <Button className='mr-2 shadow-sm' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
           {post.owner === this.props.user._id && <Button className='shadow-sm' variant='primary' onClick={this.update}>Update Me</Button>}
