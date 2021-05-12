@@ -60,6 +60,10 @@ textarea, .show-post-text, .show-comment-text {
   color: lightgrey;
 }
 
+.comment-date {
+  color: lightgrey;
+}
+
 @media (max-width:500px) {
   #sign-in-container {
     padding-left: 1rem;

@@ -8,6 +8,7 @@ import Comments from './Comments'
 import IndexComments from './IndexComments'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
+import moment from 'moment'
 
 // 2. Class
 class ShowPostDC extends Component {
@@ -160,6 +161,7 @@ class ShowPostDC extends Component {
       postJsx = (
         <div className='mb-2 mx-auto'>
           <h4>- {post.title}</h4>
+          <p className='post-date mb-3'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
           <p className='show-post-text'>{post.list}</p>
           {post.owner === this.props.user._id && <Button className='mr-2' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
           {post.owner === this.props.user._id && <Button variant='primary' onClick={this.update}>Update Me</Button>}

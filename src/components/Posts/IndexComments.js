@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 // apiUrl from apiConfig.js
 import apiUrl from './../../apiConfig'
+import moment from 'moment'
 
 // 2. The class
 class IndexComments extends Component {
@@ -74,8 +75,8 @@ class IndexComments extends Component {
         <div className='ml-2'>
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
             <p key={filteredComments._id}>
-              <p className='owner'>{filteredComments.ownerName}</p>
-              <p className='show-comment-text'>{filteredComments.text}</p>
+              <p className='owner'>{filteredComments.ownerName} <p className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </p></p>
+              <p className='show-comment-text ml-3'>{filteredComments.text}</p>
             </p>
           ))}
         </div>

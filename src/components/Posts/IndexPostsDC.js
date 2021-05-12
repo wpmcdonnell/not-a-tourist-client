@@ -11,6 +11,7 @@ import { Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 // apiUrl from apiConfig.js
 import apiUrl from './../../apiConfig'
+import moment from 'moment'
 
 // 2. The class
 class IndexPostsDC extends Component {
@@ -88,6 +89,7 @@ class IndexPostsDC extends Component {
           {this.state.posts.map(post => (
             <li key={post._id}>
               <Link to={`/dc-posts/${post._id}`}>{post.title}</Link>
+              <p className='post-index-date d-inline'>  ...  {moment(post.createdAt).startOf('hour').fromNow()} </p>
             </li>
           ))}
         </ul>
