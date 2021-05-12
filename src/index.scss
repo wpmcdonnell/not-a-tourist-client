@@ -84,3 +84,10 @@ textarea, .show-post-text, .show-comment-text {
     padding-right: 28rem;
   }
 }
+
+@media (min-width:800px) {
+  .show-post {
+    padding-left: 25rem;
+    padding-right: 25rem;
+  }
+}

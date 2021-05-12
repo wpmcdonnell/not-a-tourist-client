@@ -93,7 +93,7 @@ class IndexPostsPAR extends Component {
             <Card className='mb-2'style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
-                  <Link to={`/par-posts/${post._id}`}>{post.title}</Link>
+                  <Link to={`/paris-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
