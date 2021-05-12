@@ -5,6 +5,7 @@
 // 1. Imports
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
+// import Button from 'react-bootstrap/Button'
 // import { Link } from 'react-router-dom'
 // axios package (HTTP requests)
 // const axios = require('axios')
@@ -21,12 +22,12 @@ class IndexComments extends Component {
     // Set up the constructor, allow us to override some of what
     // we inherit
     super()
-
     // useFUL constructor sets state
     this.state = {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
-      comments: null
+      comments: null,
+      value: 0
     }
   }
 
@@ -50,6 +51,42 @@ class IndexComments extends Component {
       })
       .catch(console.error)
   }
+
+  deleteComment = (event) => {
+    const msgAlert = this.props.msgAlert
+    console.log(event.target.id)
+    console.log(this.state.value)
+    // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
+    axios({
+      url: apiUrl + '/comments/' + event.target.id,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(response => {
+      // Upon successful delete, we want to do something
+      // a common pattern w/ React is when something happens
+      // We modify the state
+      // State change forces a re-render
+        this.setState({ value: this.state.value + 1 })
+      })
+      .then(response => {
+        this.props.rerenderParentCallback()
+      })
+      .then(() => msgAlert({
+        heading: 'You just deleted your comment',
+        message: 'Say "bye bye!"',
+        variant: 'success'
+      }))
+      .catch(() => msgAlert({
+        heading: 'THIS IS NOT YOUR comment',
+        message: 'What do you think your trying to pull!"',
+        variant: 'danger'
+      }))
+      .catch(console.error)
+  }
+
   // render is REQUIRED for any class component
   render () {
     // 1 thing the render method does is "render" JSX
@@ -77,6 +114,10 @@ class IndexComments extends Component {
             <p key={filteredComments._id}>
               <p className='owner'>{filteredComments.ownerName} <p className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </p></p>
               <p className='show-comment-text ml-3'>{filteredComments.text}</p>
+              {filteredComments.owner === this.props.user._id && <a
+                href='javascript:;' className='ml-3' id={filteredComments._id} onClick={this.deleteComment}>Delete
+              </a>
+              }
             </p>
           ))}
         </div>
@@ -86,7 +127,9 @@ class IndexComments extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        {commentsJsx}
+        <div key={this.state.value}>
+          {commentsJsx}
+        </div>
       </Fragment>
     )
   }

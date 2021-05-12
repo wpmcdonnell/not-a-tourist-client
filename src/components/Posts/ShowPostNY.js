@@ -179,7 +179,7 @@ class ShowPostNY extends Component {
             <h1>NEW YORK BABY</h1>
             {postJsx}
             <Comments key={this.state.commentValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
-            <IndexComments key={this.state.indexValue} {...this.props} />
+            <IndexComments key={this.state.indexValue} rerenderParentCallback={this.rerenderParentCallback} {...this.props} />
           </div>
         </div>
       </Fragment>
