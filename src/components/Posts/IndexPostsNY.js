@@ -6,6 +6,7 @@
 import React, { Component, Fragment } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Redirect, Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -61,8 +62,11 @@ class IndexPostsNY extends Component {
   render () {
     const indexPostStyle = {
       display: 'flex',
+      flexDirection: 'flex-wrap',
       alignItems: 'center',
-      paddingTop: '1rem'
+      paddingTop: '1rem',
+      marginLeft: '1rem',
+      marginRight: '1rem'
     }
     const { create } = this.state
     // 1 thing the render method does is "render" JSX
@@ -86,14 +90,18 @@ class IndexPostsNY extends Component {
     } else {
       // we have posts! display them
       postsJsx = (
-        <ul>
+        <div className='mb-1'>
           {this.state.posts.map(post => (
-            <li key={post._id}>
-              <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
-              <p className='post-index-date d-inline'>  ...  {moment(post.createdAt).startOf('hour').fromNow()} </p>
-            </li>
+            <Card className='mb-2'style={{ }} key={post._id}>
+              <Card.Body>
+                <Card.Title>
+                  <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
+                </Card.Title>
+                <p className='post-index-date d-inline'>  ...  {moment(post.createdAt).startOf('hour').fromNow()} </p>
+              </Card.Body>
+            </Card>
           ))}
-        </ul>
+        </div>
       )
     }
 
@@ -101,13 +109,13 @@ class IndexPostsNY extends Component {
     return (
       <Fragment>
         <div style={indexPostStyle}>
-          <div className='col-10 mx-auto mb-5'>
+          <div className='mx-auto mb-5'>
             <Link className='text-black mb-3' to={'/cities/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
               <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
             </svg> Cities </h5> </Link>
-            <h1>New York, New York</h1>
-            <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
-            <h3>Check out all the sweet posts</h3>
+            <h1 className='mb-1'>New York, New York</h1>
+            <Button className='mb-2' variant='primary' onClick={this.create}>Create a Post</Button>
+            <h3 className='mb-3'>Check out all the sweet posts</h3>
             {postsJsx}
           </div>
         </div>
