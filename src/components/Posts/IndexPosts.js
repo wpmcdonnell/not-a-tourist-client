@@ -108,7 +108,7 @@ class IndexPosts extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <div style={indexPostStyle}>
+        <div className='index-posts' style={indexPostStyle}>
           <div className='mx-auto mb-5'>
             <h1 className='mb-1'>GENERAL TOPICS</h1>
             <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
