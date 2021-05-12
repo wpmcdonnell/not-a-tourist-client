@@ -49,7 +49,7 @@ class IndexPostsNY extends Component {
       .then(response => {
         // Set the state to hold the array of posts
         // this will cause a re-render
-        this.setState({ posts: response.data.posts })
+        this.setState({ posts: response.data.posts.reverse() })
       })
       .catch(console.error)
   }
@@ -62,7 +62,6 @@ class IndexPostsNY extends Component {
   render () {
     const indexPostStyle = {
       display: 'flex',
-      flexDirection: 'flex-wrap',
       alignItems: 'center',
       paddingTop: '1rem',
       marginLeft: '1rem',
@@ -97,7 +96,7 @@ class IndexPostsNY extends Component {
                 <Card.Title>
                   <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
-                <p className='post-index-date d-inline'>  ...  {moment(post.createdAt).startOf('hour').fromNow()} </p>
+                <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
           ))}
