@@ -2,6 +2,7 @@
 // Component & Fragment
 import React, { Component, Fragment } from 'react'
 import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Card } from 'react-bootstrap'
 // import Comments from './Comments'
 import Button from 'react-bootstrap/Button'
 import Comments from './Comments'
@@ -119,12 +120,14 @@ class ShowPost extends Component {
     } else {
       // we have a post! Display it
       postJsx = (
-        <div className='mb-2 mx-auto'>
+        <div className='mb-4 mx-auto'>
           <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
           <h4>- {post.title}</h4>
-          <p className='show-post-text ml-3'>{post.list}</p>
-          {post.owner === this.props.user._id && <Button className='mr-2' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
-          {post.owner === this.props.user._id && <Button variant='primary' onClick={this.update}>Update Me</Button>}
+          <Card className='mt-2 mb-2 shadow-sm'>
+            <Card.Body className='show-post-text'>{post.list}</Card.Body>
+          </Card>
+          {post.owner === this.props.user._id && <Button className='mr-2 shadow-sm' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
+          {post.owner === this.props.user._id && <Button className='shadow-sm' variant='primary' onClick={this.update}>Update Me</Button>}
         </div>
       )
     }

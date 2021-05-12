@@ -102,7 +102,7 @@ class UpdatePostDC extends Component {
     const updatePostStyle = {
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '3rem'
+      paddingTop: '1rem'
     }
 
     const { cancel } = this.state

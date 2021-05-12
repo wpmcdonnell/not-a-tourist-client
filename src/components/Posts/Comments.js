@@ -122,7 +122,7 @@ class Comments extends Component {
           <form onSubmit={this.handleSubmit}>
             <textarea className='form-control mb-2' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
             </textarea>
-            <Button className='mb-2 shadow-sm' type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
+            <Button className='mb-2 shadow' type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
           </form>
         </div>
       </Fragment>
