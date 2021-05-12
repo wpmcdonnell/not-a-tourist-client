@@ -115,7 +115,7 @@ class IndexComments extends Component {
               <p className='owner'>{filteredComments.ownerName} <p className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </p></p>
               <p className='show-comment-text ml-3'>{filteredComments.text}</p>
               {filteredComments.owner === this.props.user._id && <a
-                href='javascript:;' className='ml-3' id={filteredComments._id} onClick={this.deleteComment}>Delete
+                href='javascript:;' className='d-flex justify-content-end mr-2' id={filteredComments._id} onClick={this.deleteComment}>Delete
               </a>
               }
             </p>
