@@ -86,7 +86,6 @@ class IndexComments extends Component {
     // Variable is referenced as JS in the JSX block
     return (
       <Fragment>
-        <h2>COMMENTS</h2>
         {commentsJsx}
       </Fragment>
     )

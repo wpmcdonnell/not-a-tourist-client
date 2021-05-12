@@ -91,42 +91,42 @@ class Cities extends Component {
     return (
       <div className='pt-5'>
         <div className='row col-lg-9 mx-auto'style={cardContainerLayout}>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="ny.png"/>
             <Card.Body>
               <Card.Title>New York, New York</Card.Title>
               <Button variant='primary' onClick={this.newYork}>NY</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="se.png"/>
             <Card.Body>
               <Card.Title>Seattle, WA</Card.Title>
               <Button variant='primary' onClick={this.seattle}>SE</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="la.jpeg"/>
             <Card.Body>
               <Card.Title>Los Angeles, CA</Card.Title>
               <Button variant='primary' onClick={this.losAngeles}>LA</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="dc.jpeg"/>
             <Card.Body>
               <Card.Title>Washington, DC</Card.Title>
               <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="tokyo.jpeg"/>
             <Card.Body>
               <Card.Title>Tokyo, JP </Card.Title>
               <Button variant='primary' onClick={this.tokyo}>TYO</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
             <Card.Img variant="top" src="paris.jpeg"/>
             <Card.Body>
               <Card.Title>Paris, FR</Card.Title>

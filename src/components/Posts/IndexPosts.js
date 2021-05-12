@@ -92,7 +92,7 @@ class IndexPosts extends Component {
       postsJsx = (
         <div className='mb-1'>
           {this.state.posts.map(post => (
-            <Card className='mb-2'style={{ }} key={post._id}>
+            <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
@@ -111,7 +111,7 @@ class IndexPosts extends Component {
         <div className='index-posts' style={indexPostStyle}>
           <div className='mx-auto mb-5'>
             <h1 className='mb-1'>GENERAL TOPICS</h1>
-            <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
+            <Button className='mb-2 shadow' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3 className='mb-3'>Check out all the sweet posts</h3>
             {postsJsx}
           </div>
