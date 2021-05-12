@@ -64,6 +64,10 @@ textarea, .show-post-text, .show-comment-text {
   color: lightgrey;
 }
 
+.post-box {
+  box-shadow: -1px -1px 7px .5px $primary;
+}
+
 @media (max-width:500px) {
   #sign-in-container {
     padding-left: 1rem;

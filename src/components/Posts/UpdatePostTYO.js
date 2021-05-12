@@ -133,9 +133,9 @@ class UpdatePostTYO extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary mb-4' type="submit">Update</button>
+              <button className='btn btn-primary mb-4 shadow-sm' type="submit">Update</button>
             </form>
-            <button className='btn btn-primary' onClick={this.cancel}>Cancel</button>
+            <button className='btn btn-primary shadow-sm' onClick={this.cancel}>Cancel</button>
           </div>
         </div>
       </Fragment>

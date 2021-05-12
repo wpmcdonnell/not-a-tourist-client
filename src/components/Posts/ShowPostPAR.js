@@ -160,7 +160,7 @@ class ShowPostPAR extends Component {
         <div className='mb-4 mx-auto'>
           <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
           <h4>- {post.title}</h4>
-          <Card className='mt-2 mb-2 shadow-sm'>
+          <Card className='mt-2 mb-2 post-box'>
             <Card.Body className='show-post-text'>{post.list}</Card.Body>
           </Card>
           {post.owner === this.props.user._id && <Button className='mr-2 shadow-sm' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
