@@ -51,6 +51,15 @@ textarea, .show-post-text, .show-comment-text {
 .owner {
   color: #fad2e1;
 }
+
+.post-date {
+  color: grey;
+}
+
+.post-index-date {
+  color: lightgrey;
+}
+
 @media (max-width:500px) {
   #sign-in-container {
     padding-left: 1rem;
