@@ -7,6 +7,7 @@ import React, { Component, Fragment } from 'react'
 
 import { Redirect, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import { Card } from 'react-bootstrap'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -48,7 +49,7 @@ class IndexPosts extends Component {
       .then(response => {
         // Set the state to hold the array of posts
         // this will cause a re-render
-        this.setState({ posts: response.data.posts })
+        this.setState({ posts: response.data.posts.reverse() })
       })
       .catch(console.error)
   }
@@ -62,7 +63,9 @@ class IndexPosts extends Component {
     const indexPostStyle = {
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '2rem'
+      paddingTop: '2rem',
+      marginLeft: '1rem',
+      marginRight: '1rem'
     }
 
     const { create } = this.state
@@ -87,14 +90,18 @@ class IndexPosts extends Component {
     } else {
       // we have posts! display them
       postsJsx = (
-        <ul>
+        <div className='mb-1'>
           {this.state.posts.map(post => (
-            <li key={post._id}>
-              <Link to={`/posts/${post._id}`}>{post.title}</Link>
-              <p className='post-index-date d-inline'>  ...  {moment(post.createdAt).startOf('hour').fromNow()} </p>
-            </li>
+            <Card className='mb-2'style={{ }} key={post._id}>
+              <Card.Body>
+                <Card.Title>
+                  <Link to={`/posts/${post._id}`}>{post.title}</Link>
+                </Card.Title>
+                <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
+              </Card.Body>
+            </Card>
           ))}
-        </ul>
+        </div>
       )
     }
 
@@ -102,10 +109,10 @@ class IndexPosts extends Component {
     return (
       <Fragment>
         <div style={indexPostStyle}>
-          <div className='col-10 mx-auto mb-5'>
-            <h1>GENERAL TOPICS</h1>
+          <div className='mx-auto mb-5'>
+            <h1 className='mb-1'>GENERAL TOPICS</h1>
             <Button className='mb-1' variant='primary' onClick={this.create}>Create a Post</Button>
-            <h3>Check out all the sweet posts</h3>
+            <h3 className='mb-3'>Check out all the sweet posts</h3>
             {postsJsx}
           </div>
         </div>
