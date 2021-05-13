@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Route, withRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
@@ -39,6 +39,7 @@ import CreatePostDC from './components/Posts/CreatePostDC'
 import CreatePostTYO from './components/Posts/CreatePostTYO'
 import CreatePostPAR from './components/Posts/CreatePostPAR'
 import Background from './components/Background/Background'
+import Upload from './routes/PictureUpload'
 
 class App extends Component {
   constructor (props) {
@@ -185,10 +186,13 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/tokyo-posts' render={() => (
             <IndexPostsTYO msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/picture-upload' render={() => (
+            <Upload msgAlert={this.msgAlert} user={user} />
+          )} />
         </main>
       </Fragment>
     )
   }
 }
 
-export default withRouter(App)
+export default App
