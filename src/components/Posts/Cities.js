@@ -95,10 +95,7 @@ class Cities extends Component {
             <Card.Img variant="top" src="ny.png"/>
             <Card.Body>
               <Card.Title>New York, New York</Card.Title>
-              <div className='container d-flex justify-content-between'>
-                <Button className='m' variant='primary' onClick={this.newYork}>NY</Button>
-                <Link to='/ny-fashion/' className='align-self-end'> Fashion </Link>
-              </div>
+              <Button className='m' variant='primary' onClick={this.newYork}>NY</Button>
             </Card.Body>
           </Card>
           <Card className="mb-5 shadow" style={{ width: '18rem' }}>

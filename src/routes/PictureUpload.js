@@ -63,9 +63,9 @@ const Upload = ({ user, msgAlert }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container upload-page">
       <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+        <div className="mx-auto mt-5">
           <h3>Upload Image</h3>
           <Form onSubmit={handleImageSubmit}>
             <Form.Group controlId="image">
@@ -86,16 +86,16 @@ const Upload = ({ user, msgAlert }) => {
                 onChange={handleCaptionChange}
               />
             </Form.Group>
-            <Form.Group controlId="list">
-              <Form.Label>List</Form.Label>
-              <Form.Control
-                type="text"
-                name="list"
-                value={list}
-                placeholder="Enter text"
-                onChange={handleTagChange}
-              />
-            </Form.Group>
+
+            <textarea
+              className="form-control mb-4"
+              rows='10'
+              type="text"
+              name="list"
+              value={list}
+              placeholder="description"
+              onChange={handleTagChange}
+            />
             <Button
               variant="primary"
               type="submit"

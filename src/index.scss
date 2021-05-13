@@ -100,3 +100,10 @@ textarea, .show-post-text, .show-comment-text {
     padding-right: 25rem;
   }
 }
+
+@media (min-width:800px) {
+  .upload-page, .create-page {
+    padding-left: 22rem;
+    padding-right: 22rem;
+  }
+}

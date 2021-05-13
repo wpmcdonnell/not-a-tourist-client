@@ -112,7 +112,7 @@ class IndexPostsNY extends Component {
             <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
-                  <Card.Img variant="top" src={post.url}/>
+                  <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>

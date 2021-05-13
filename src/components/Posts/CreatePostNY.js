@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
-import Upload from './../../routes/PictureUpload'
 
 class CreatePostNY extends Component {
   constructor () {
@@ -89,7 +88,7 @@ class CreatePostNY extends Component {
 
     return (
       <Fragment>
-        <div style={createPostStyle} className=''>
+        <div style={createPostStyle} className='create-page'>
           <div className='col-10 mx-auto'>
             <Link className='text-black mb-3' to={'/ny-posts/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
               <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
@@ -105,7 +104,7 @@ class CreatePostNY extends Component {
                 onChange={this.handleChange}
               />
               <textarea
-                className="form-control mb-2"
+                className="form-control mb-4"
                 rows='10'
                 type="text"
                 name="list"
@@ -113,10 +112,12 @@ class CreatePostNY extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary mb-5 shadow-sm' type="submit">Create New Post</button>
+              <div className='row align-items-baseline justify-content-around'>
+                <button className='btn btn-primary mb-5 shadow-sm' type="submit">Post</button>
+                <p className='d-inline'>or</p>
+                <button className='btn btn-primary mb-5 shadow-sm d-inline' onClick={this.imageChange}>Upload Image</button>
+              </div>
             </form>
-            <button className='btn btn-primary mb-5 shadow-sm' onClick={this.imageChange}>Upload Image</button>
-            <Upload/>
           </div>
         </div>
       </Fragment>
