@@ -29,7 +29,8 @@ class IndexPostsNY extends Component {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
       posts: null,
-      create: false
+      create: false,
+      pictures: null
     }
   }
 
@@ -65,7 +66,8 @@ class IndexPostsNY extends Component {
         console.log(response.data)
         // Set the state to hold the array of posts
         // this will cause a re-render
-        this.setState({ posts: response.data.posts.reverse() })
+        this.setState({ pictures: response.data.pictures })
+        console.log(this.state.pictures)
       })
       .catch(console.error)
   }
@@ -96,13 +98,13 @@ class IndexPostsNY extends Component {
 
     if (create) {
       return <Redirect to={'/create-post-ny'}/>
-    } else if (!this.state.posts) {
+    } else if (!this.state.posts || !this.state.pictures) {
       // if the posts state is null
       postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
       // if posts array has length of 0 it's empty
       postsJsx = <p>No posts! Go create some.</p>
-    } else {
+    } else if (this.state.posts && this.state.pictures) {
       // we have posts! display them
       postsJsx = (
         <div className='mb-1'>
@@ -113,6 +115,16 @@ class IndexPostsNY extends Component {
                   <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
+              </Card.Body>
+            </Card>
+          ))}{this.state.pictures.map(picture => (
+            <Card className='mb-2 shadow bg-white rounded' style={{ }} key={picture._id}>
+              <Card.Body>
+                <Card.Title>
+                  <Card.Img variant="top" src={picture.url}/>
+                  <Link to={`/ny-posts/${picture._id}`}>{picture.owner}</Link>
+                </Card.Title>
+                <p className='post-index-date d-inline'>{moment(picture.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
           ))}
