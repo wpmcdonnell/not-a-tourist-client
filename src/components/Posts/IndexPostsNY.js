@@ -108,23 +108,14 @@ class IndexPostsNY extends Component {
       // we have posts! display them
       postsJsx = (
         <div className='mb-1'>
-          {this.state.posts.map(post => (
+          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => (
             <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
+                  <Card.Img variant="top" src={post.url}/>
                   <Link to={`/ny-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
-              </Card.Body>
-            </Card>
-          ))}{this.state.pictures.map(picture => (
-            <Card className='mb-2 shadow bg-white rounded' style={{ }} key={picture._id}>
-              <Card.Body>
-                <Card.Title>
-                  <Card.Img variant="top" src={picture.url}/>
-                  <Link to={`/ny-posts/${picture._id}`}>{picture.owner}</Link>
-                </Card.Title>
-                <p className='post-index-date d-inline'>{moment(picture.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
           ))}

@@ -44,9 +44,9 @@ export const galleryNoUser = () => {
   })
 }
 
-export const pictureShow = (id) => {
+export const pictureShowNy = (id) => {
   return axios({
-    url: apiUrl + '/pictures/' + id,
+    url: apiUrl + '/ny-posts/' + id,
     method: 'Get'
     // headers: {
     //   'Authorization': `Bearer ${user.token}`

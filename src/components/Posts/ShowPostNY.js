@@ -25,7 +25,8 @@ class ShowPostNY extends Component {
       // Delete boolean to manage if we've deleted this post
       deleted: false,
       commentValue: 0,
-      indexValue: 1
+      indexValue: 1,
+      picture: null
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
@@ -51,7 +52,11 @@ class ShowPostNY extends Component {
         // axios response object contains a `data` key
         // { data: { post: { title... }}}
         // setting the state will force a re-render
-        this.setState({ post: response.data.post })
+        if (response.data.picture) {
+          this.setState({ picture: response.data.picture })
+        } else {
+          this.setState({ post: response.data.post })
+        }
       })
       .catch(console.error)
   }
@@ -142,7 +147,7 @@ class ShowPostNY extends Component {
     }
     // create a local variable `post` and set it's value
     // to the value of the `post` key on `this.state`
-    const { post, deleted, toUpdate } = this.state
+    const { post, deleted, toUpdate, picture } = this.state
     // 2 scenarios: loading, post to show
 
     let postJsx = ''
@@ -152,9 +157,22 @@ class ShowPostNY extends Component {
       return <Redirect to="/ny-posts"/>
     } else if (toUpdate) {
       return <Redirect to={'/ny-posts/' + this.props.match.params.id + '/update'}/>
-    } else if (!post) {
+    } else if (!post && !picture) {
       // loading, no post yet
       postJsx = <p>Loading...</p>
+    } else if (picture && !post) {
+      postJsx = (
+        <div className='mb-4 mx-auto'>
+          <p className='post-date mb-1'>{moment(picture.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {picture.ownerName} </p></p>
+          <h4 className='ml-1'>- {picture.title}</h4>
+          <Card className='mt-2 mb-2 post-box'>
+            <Card.Img variant="top" src={picture.url}/>
+            <Card.Body className='show-post-text'><Linkify>{picture.list}</Linkify></Card.Body>
+          </Card>
+          {post.owner === this.props.user._id && <Button className='mr-2 shadow-sm' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
+          {post.owner === this.props.user._id && <Button className='shadow-sm' variant='primary' onClick={this.update}>Update Me</Button>}
+        </div>
+      )
     } else {
       // we have a post! Display it
       postJsx = (
