@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
+import Upload from './../../routes/PictureUpload'
 
 class CreatePostNY extends Component {
   constructor () {
@@ -15,7 +16,8 @@ class CreatePostNY extends Component {
       // Boolean to handle before/after of submitting
       // created: false
       // Store the post's ID in the state, initially null
-      createdId: null
+      createdId: null,
+      image: false
     }
   }
 
@@ -30,6 +32,10 @@ class CreatePostNY extends Component {
       // spread operator ends up merging these two objects
       return { post: { ...oldState.post, ...updatedField } }
     })
+  }
+
+  imageChange = () => {
+    this.setState({ image: true })
   }
 
   handleSubmit = (event) => {
@@ -77,6 +83,8 @@ class CreatePostNY extends Component {
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
       return <Redirect to={`/ny-posts/${this.state.createdId}`}/>
+    } else if (this.state.image) {
+      return <Redirect to='/picture-upload/'/>
     }
 
     return (
@@ -107,6 +115,8 @@ class CreatePostNY extends Component {
               />
               <button className='btn btn-primary mb-5 shadow-sm' type="submit">Create New Post</button>
             </form>
+            <button className='btn btn-primary mb-5 shadow-sm' onClick={this.imageChange}>Upload Image</button>
+            <Upload/>
           </div>
         </div>
       </Fragment>

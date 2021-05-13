@@ -52,6 +52,22 @@ class IndexPostsNY extends Component {
         this.setState({ posts: response.data.posts.reverse() })
       })
       .catch(console.error)
+
+    axios({
+      url: `${apiUrl}/ny-posts-pictures`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+
+      .then(response => {
+        console.log(response.data)
+        // Set the state to hold the array of posts
+        // this will cause a re-render
+        this.setState({ posts: response.data.posts.reverse() })
+      })
+      .catch(console.error)
   }
 
   create = (event) => {

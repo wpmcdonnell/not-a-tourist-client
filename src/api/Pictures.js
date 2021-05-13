@@ -12,6 +12,17 @@ export const pictureCreate = (user, data) => {
   })
 }
 
+export const pictureCreateNy = (user, data) => {
+  return axios({
+    url: apiUrl + '/ny-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
 export const pictureIndex = user => {
   return axios({
     url: apiUrl + '/pictures',

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 
 // import messages from '../AutoDismissAlert/messages'
-import { pictureCreate } from './../api/Pictures'
+import { pictureCreateNy } from './../api/Pictures'
 
 import Form from 'react-bootstrap/Form'
 import FormFile from 'react-bootstrap/FormFile'
@@ -12,31 +12,32 @@ import Spinner from 'react-bootstrap/Spinner'
 import { Col } from 'react-bootstrap'
 
 const Upload = ({ user, msgAlert }) => {
-  const [caption, setCaption] = useState('')
-  const [tag, setTag] = useState('')
+  const [title, setTitle] = useState('')
+  const [list, setList] = useState('')
   const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [imageURL, setImageURL] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
 
   const handleCaptionChange = event => {
-    setCaption(event.target.value)
+    setTitle(event.target.value)
   }
 
   const handleTagChange = event => {
     const str = event.target.value
-    setTag(str)
+    setList(str)
   }
 
   const handleImageSubmit = event => {
     event.preventDefault()
+    console.log(user)
     const data = new FormData()
     data.append('picture', image)
-    data.append('caption', caption)
-    data.append('tag', tag)
+    data.append('title', title)
+    data.append('list', list)
     setLoading(true)
     setImagePreview(null)
-    pictureCreate(user, data)
+    pictureCreateNy(user, data)
       .then(response => {
         setImageURL(response.data.picture.url)
       })
@@ -75,23 +76,23 @@ const Upload = ({ user, msgAlert }) => {
                 onChange={handleImageAdd}
               />
             </Form.Group>
-            <Form.Group controlId="caption">
-              <Form.Label>Caption</Form.Label>
+            <Form.Group controlId="title">
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 type="text"
-                name="caption"
-                value={caption}
-                placeholder="Enter Caption"
+                name="title"
+                value={title}
+                placeholder="Enter Title"
                 onChange={handleCaptionChange}
               />
             </Form.Group>
-            <Form.Group controlId="caption">
-              <Form.Label>Tag</Form.Label>
+            <Form.Group controlId="list">
+              <Form.Label>List</Form.Label>
               <Form.Control
                 type="text"
-                name="tag"
-                value={tag}
-                placeholder="Enter Tag"
+                name="list"
+                value={list}
+                placeholder="Enter text"
                 onChange={handleTagChange}
               />
             </Form.Group>
