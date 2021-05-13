@@ -68,6 +68,12 @@ textarea, .show-post-text, .show-comment-text {
   box-shadow: -1px -1px 7px .5px $primary;
 }
 
+// .card-button-line {
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: flex-end;
+// }
+
 @media (max-width:500px) {
   #sign-in-container {
     padding-left: 1rem;
