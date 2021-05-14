@@ -39,7 +39,10 @@ import CreatePostDC from './components/Posts/CreatePostDC'
 import CreatePostTYO from './components/Posts/CreatePostTYO'
 import CreatePostPAR from './components/Posts/CreatePostPAR'
 import Background from './components/Background/Background'
-import UploadNY from './routes/PictureUploadNY'
+import UploadNY from './PictureComponents/PictureUploadNY'
+import UploadDC from './PictureComponents/PictureUploadDC'
+import UploadLA from './PictureComponents/PictureUploadLA'
+import UploadSE from './PictureComponents/PictureUploadSE'
 import NYUpdatePicture from './PictureComponents/NYUpdatePicture'
 
 class App extends Component {
@@ -189,6 +192,15 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-picture-upload' render={() => (
             <UploadNY msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/dc-picture-upload' render={() => (
+            <UploadDC msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-picture-upload' render={() => (
+            <UploadLA msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/se-picture-upload' render={() => (
+            <UploadSE msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id/img-post-update' render={() => (
             <NYUpdatePicture msgAlert={this.msgAlert} user={user} />
