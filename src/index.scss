@@ -68,6 +68,11 @@ textarea, .show-post-text, .show-comment-text {
   box-shadow: -1px -1px 7px .5px $primary;
 }
 
+.polaroid-title {
+  text-align: center;
+  font-size: xx-large;
+}
+
 // .card-button-line {
 //   display: flex;
 //   justify-content: space-around;
@@ -102,7 +107,14 @@ textarea, .show-post-text, .show-comment-text {
 }
 
 @media (min-width:800px) {
-  .upload-page, .create-page {
+  .upload-page {
+    padding-left: 22rem;
+    padding-right: 22rem;
+  }
+}
+
+@media (min-width:800px) {
+  .create-page {
     padding-left: 22rem;
     padding-right: 22rem;
   }

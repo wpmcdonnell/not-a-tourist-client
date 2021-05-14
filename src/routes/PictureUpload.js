@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 // import messages from '../AutoDismissAlert/messages'
 import { pictureCreateNy } from './../api/Pictures'
@@ -62,48 +62,65 @@ const Upload = ({ user, msgAlert }) => {
     setImagePreview(URL.createObjectURL(event.target.files[0]))
   }
 
-  return (
-    <div className="container upload-page">
-      <div className="row">
-        <div className="mx-auto mt-5">
-          <h3>Upload Image</h3>
-          <Form onSubmit={handleImageSubmit}>
-            <Form.Group controlId="image">
-              <FormFile
-                required
-                id="upload-file-input"
-                label="Upload File Here"
-                onChange={handleImageAdd}
-              />
-            </Form.Group>
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={title}
-                placeholder="Enter Title"
-                onChange={handleCaptionChange}
-              />
-            </Form.Group>
+  const uploadImageStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: '1rem',
+    marginLeft: '1rem',
+    marginRight: '1rem'
+  }
 
-            <textarea
-              className="form-control mb-4"
-              rows='10'
-              type="text"
-              name="list"
-              value={list}
-              placeholder="description"
-              onChange={handleTagChange}
+  return (
+    <div className="upload-page mb-5" style={uploadImageStyle}>
+      <div className="mx-auto">
+        <Link className='text-black mb-3' to={'/ny-posts/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+          <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg> Back </h5> </Link>
+        <h3>Upload Image</h3>
+        <Form onSubmit={handleImageSubmit}>
+          <Form.Group controlId="image">
+            <FormFile
+              required
+              id="upload-file-input"
+              label="Upload File Here"
+              onChange={handleImageAdd}
             />
-            <Button
-              variant="primary"
-              type="submit"
-            >
-            Submit
-            </Button>
-          </Form>
-        </div>
+          </Form.Group>
+          {imagePreview && <div className='mb-4'>
+            <div className="mt-3">
+              <Col xs={12} md={8}>
+                <Image src={imagePreview} thumbnail/>
+              </Col>
+            </div>
+          </div>}
+          <Form.Group controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={title}
+              placeholder="Enter Title"
+              onChange={handleCaptionChange}
+            />
+          </Form.Group>
+
+          <textarea
+            className="form-control mb-4"
+            rows='10'
+            type="text"
+            name="list"
+            value={list}
+            placeholder="description"
+            onChange={handleTagChange}
+          />
+          <Button
+            className='shadow'
+            variant="primary"
+            type="submit"
+          >
+          Submit
+          </Button>
+        </Form>
       </div>
       {loading && <div className="spinner">
         <Spinner animation="border" variant="info">
@@ -117,13 +134,6 @@ const Upload = ({ user, msgAlert }) => {
           </div>
         </div>
       }
-      {imagePreview && <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <Col xs={6} md={4}>
-            <Image src={imagePreview} thumbnail/>
-          </Col>
-        </div>
-      </div>}
     </div>
   )
 }

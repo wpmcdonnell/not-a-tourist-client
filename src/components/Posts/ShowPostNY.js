@@ -178,12 +178,11 @@ class ShowPostNY extends Component {
       postJsx = (
         <div className='mb-4 mx-auto'>
           <p className='post-date mb-1'>{moment(picture.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {picture.ownerName} </p></p>
-          <h4 className='ml-1'>- {picture.title}</h4>
           <Card className='mt-2 mb-2 shadow-lg bg-white rounded'>
             <Card.Body className=''>
               <Card.Title>
                 <Card.Img variant="top" src={picture.url}/>
-                <Linkify><p className='mx-auto'>{picture.title}</p></Linkify>
+                <Linkify><div className='polaroid-title mt-4'>{picture.title}</div></Linkify>
               </Card.Title>
             </Card.Body>
           </Card>
@@ -197,10 +196,10 @@ class ShowPostNY extends Component {
     } else {
       // we have a post! Display it
       postJsx = (
-        <div className='mb-4 mx-auto'>
+        <div className='mb-5 mx-auto'>
           <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
           <h4 className='ml-1'>- {post.title}</h4>
-          <Card className='mt-2 mb-2 post-box'>
+          <Card className='mt-2 mb-4 post-box'>
             <Card.Body className='show-post-text'><Linkify>{post.list}</Linkify>
             </Card.Body>
           </Card>

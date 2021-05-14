@@ -117,10 +117,10 @@ class Comments extends Component {
   render () {
     return (
       <Fragment>
-        <div>
+        <div className='mb-2'>
           <h2>COMMENTS</h2>
           <form onSubmit={this.handleSubmit}>
-            <textarea className='form-control mb-2' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
+            <textarea className='form-control mb-3' name='text' placeholder='Leave a comment here' id='floatingTextarea2' value={this.state.comment.text} onChange={this.handleChange}>
             </textarea>
             <Button className='mb-2 shadow' type='submit' onClick={() => { this.onBtnClick() }}>Post</Button>
           </form>
