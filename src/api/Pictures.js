@@ -3,7 +3,7 @@ import apiUrl from '../apiConfig'
 
 export const pictureCreate = (user, data) => {
   return axios({
-    url: apiUrl + '/pictures',
+    url: apiUrl + '/posts-pictures',
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${user.token}`
