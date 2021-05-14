@@ -51,6 +51,7 @@ class IndexPostsNY extends Component {
         // Set the state to hold the array of posts
         // this will cause a re-render
         this.setState({ posts: response.data.posts.reverse() })
+        console.log(response.data)
       })
       .catch(console.error)
 
