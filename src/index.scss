@@ -123,3 +123,10 @@ textarea, .show-post-text, .show-comment-text {
     padding-right: 22rem;
   }
 }
+
+@media (min-width:800px) {
+  .update-page {
+    padding-left: 25rem;
+    padding-right: 25rem;
+  }
+}

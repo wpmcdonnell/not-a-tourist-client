@@ -26,7 +26,8 @@ class ShowPostNY extends Component {
       deleted: false,
       commentValue: 0,
       indexValue: 1,
-      picture: null
+      picture: null,
+      toUpdatePicture: false
     }
 
     // If we don't use arrow functions, then we need to bind the `this` scope
@@ -121,6 +122,44 @@ class ShowPostNY extends Component {
     return this.setState({ toUpdate: true })
   }
 
+  updatePicture = (event) => {
+    // Upon successful delete, we want to do something
+    // a common pattern w/ React is when something happens
+    // We modify the state
+    // State change forces a re-render
+    return this.setState({ toUpdatePicture: true })
+  }
+
+  deletePicture = () => {
+    const msgAlert = this.props.msgAlert
+    // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
+    axios({
+      url: apiUrl + '/ny-posts-pictures/' + this.props.match.params.id,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(response => {
+        // Upon successful delete, we want to do something
+        // a common pattern w/ React is when something happens
+        // We modify the state
+        // State change forces a re-render
+        this.setState({ deleted: true })
+      })
+      .then(() => msgAlert({
+        heading: 'You just deleted your post',
+        message: 'Say "bye bye!"',
+        variant: 'success'
+      }))
+      .catch(() => msgAlert({
+        heading: 'THIS IS NOT YOUR POST',
+        message: 'What do you think your trying to pull!"',
+        variant: 'danger'
+      }))
+      .catch(console.error)
+  }
+
   deletePost = () => {
     const msgAlert = this.props.msgAlert
     // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
@@ -161,7 +200,7 @@ class ShowPostNY extends Component {
     }
     // create a local variable `post` and set it's value
     // to the value of the `post` key on `this.state`
-    const { post, deleted, toUpdate, picture } = this.state
+    const { post, deleted, toUpdate, picture, toUpdatePicture } = this.state
     // 2 scenarios: loading, post to show
 
     let postJsx = ''
@@ -171,6 +210,8 @@ class ShowPostNY extends Component {
       return <Redirect to="/ny-posts"/>
     } else if (toUpdate) {
       return <Redirect to={'/ny-posts/' + this.props.match.params.id + '/update'}/>
+    } else if (toUpdatePicture) {
+      return <Redirect to={'/ny-posts/' + this.props.match.params.id + '/img-post-update'}/>
     } else if (!post && !picture) {
       // loading, no post yet
       postJsx = <p>Loading...</p>
@@ -190,7 +231,8 @@ class ShowPostNY extends Component {
             <Card.Body className='show-post-text'><Linkify>{picture.list}</Linkify>
             </Card.Body>
           </Card>
-          {picture.owner === this.props.user._id && <Button className='mr-2 shadow' variant='primary' onClick={this.deletePost}>Delete Me</Button>}
+          {picture.owner === this.props.user._id && <Button className='mr-2 shadow' variant='primary' onClick={this.deletePicture}>Delete Me</Button>}
+          {picture.owner === this.props.user._id && <Button className='shadow-sm' variant='primary' onClick={this.updatePicture}>Update Me</Button>}
         </div>
       )
     } else {
