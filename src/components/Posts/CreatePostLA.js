@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
-class CreatePostNY extends Component {
+class CreatePostLA extends Component {
   constructor () {
     super()
     this.state = {
@@ -15,7 +15,8 @@ class CreatePostNY extends Component {
       // Boolean to handle before/after of submitting
       // created: false
       // Store the post's ID in the state, initially null
-      createdId: null
+      createdId: null,
+      image: false
     }
   }
 
@@ -31,6 +32,10 @@ class CreatePostNY extends Component {
       return { post: { ...oldState.post, ...updatedField } }
     })
   }
+
+    imageChange = () => {
+      this.setState({ image: true })
+    }
 
   handleSubmit = (event) => {
     const user = this.props.user
@@ -77,6 +82,8 @@ class CreatePostNY extends Component {
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
       return <Redirect to={`/la-posts/${this.state.createdId}`}/>
+    } else if (this.state.image) {
+      return <Redirect to='/la-picture-upload/'/>
     }
 
     return (
@@ -105,7 +112,11 @@ class CreatePostNY extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary mb-5 shadow-sm' type="submit">Create New Post</button>
+              <div className='create-post-buttons row align-items-center'>
+                <button className='btn btn-primary mb-5 mr-4 shadow' type="submit">Post</button>
+                <div className=' mr-4 mb-5 d-inline'>or</div>
+                <button className='btn btn-primary mb-5 shadow d-inline' onClick={this.imageChange}>Upload Image</button>
+              </div>
             </form>
           </div>
         </div>
@@ -114,4 +125,4 @@ class CreatePostNY extends Component {
   }
 }
 
-export default CreatePostNY
+export default CreatePostLA
