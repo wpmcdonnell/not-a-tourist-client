@@ -45,6 +45,7 @@ import UploadLA from './PictureComponents/PictureUploadLA'
 import UploadSE from './PictureComponents/PictureUploadSE'
 import NYUpdatePicture from './PictureComponents/NYUpdatePicture'
 import SEUpdatePicture from './PictureComponents/SEUpdatePicture'
+import DCUpdatePicture from './PictureComponents/DCUpdatePicture'
 
 class App extends Component {
   constructor (props) {
@@ -208,6 +209,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/se-posts/:id/img-post-update' render={() => (
             <SEUpdatePicture msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/dc-posts/:id/img-post-update' render={() => (
+            <DCUpdatePicture msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
