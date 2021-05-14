@@ -39,8 +39,8 @@ import CreatePostDC from './components/Posts/CreatePostDC'
 import CreatePostTYO from './components/Posts/CreatePostTYO'
 import CreatePostPAR from './components/Posts/CreatePostPAR'
 import Background from './components/Background/Background'
-import Upload from './routes/PictureUpload'
-import NYUpdatePicture from './routes/NYUpdatePicture'
+import UploadNY from './routes/PictureUploadNY'
+import NYUpdatePicture from './PictureComponents/NYUpdatePicture'
 
 class App extends Component {
   constructor (props) {
@@ -187,8 +187,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/tokyo-posts' render={() => (
             <IndexPostsTYO msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/picture-upload' render={() => (
-            <Upload msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/ny-picture-upload' render={() => (
+            <UploadNY msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id/img-post-update' render={() => (
             <NYUpdatePicture msgAlert={this.msgAlert} user={user} />

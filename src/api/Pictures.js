@@ -23,6 +23,61 @@ export const pictureCreateNy = (user, data) => {
   })
 }
 
+export const pictureCreateDc = (user, data) => {
+  return axios({
+    url: apiUrl + '/dc-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
+export const pictureCreateLa = (user, data) => {
+  return axios({
+    url: apiUrl + '/la-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
+export const pictureCreateSe = (user, data) => {
+  return axios({
+    url: apiUrl + '/se-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
+export const pictureCreateParis = (user, data) => {
+  return axios({
+    url: apiUrl + '/paris-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
+export const pictureCreateTokyo = (user, data) => {
+  return axios({
+    url: apiUrl + '/tokyo-posts-pictures',
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data
+  })
+}
+
 export const pictureIndex = user => {
   return axios({
     url: apiUrl + '/pictures',

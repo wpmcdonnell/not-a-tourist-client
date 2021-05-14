@@ -85,7 +85,7 @@ class CreatePostNY extends Component {
     if (this.state.createdId) {
       return <Redirect to={`/ny-posts/${this.state.createdId}`}/>
     } else if (this.state.image) {
-      return <Redirect to='/picture-upload/'/>
+      return <Redirect to='/ny-picture-upload/'/>
     }
 
     return (

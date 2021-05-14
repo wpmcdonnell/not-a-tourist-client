@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, Redirect, withRouter } from 'react-router-dom'
 
 // import messages from '../AutoDismissAlert/messages'
-import { pictureCreateNy } from './../api/Pictures'
+import { pictureCreateLa } from './../api/Pictures'
 
 import Form from 'react-bootstrap/Form'
 import FormFile from 'react-bootstrap/FormFile'
@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/Image'
 import Spinner from 'react-bootstrap/Spinner'
 import { Col } from 'react-bootstrap'
 
-const Upload = ({ user, msgAlert }) => {
+const UploadLA = ({ user, msgAlert }) => {
   const [title, setTitle] = useState('')
   const [list, setList] = useState('')
   const [image, setImage] = useState(null)
@@ -38,7 +38,7 @@ const Upload = ({ user, msgAlert }) => {
     data.append('list', list)
     setLoading(true)
     setImagePreview(null)
-    pictureCreateNy(user, data)
+    pictureCreateLa(user, data)
       .then(response => {
         setImageURL(response.data.picture.url)
         setCreatedId(response.data.picture._id)
@@ -73,7 +73,7 @@ const Upload = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/ny-posts/${createdId}`}/>
+    return <Redirect to={`/la-posts/${createdId}`}/>
   }
 
   console.log(createdId)
@@ -81,7 +81,7 @@ const Upload = ({ user, msgAlert }) => {
   return (
     <div className="upload-page mb-5" style={uploadImageStyle}>
       <div className="mx-auto">
-        <Link className='text-black mb-3' to={'/create-post-ny/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <Link className='text-black mb-3' to={'/create-post-la/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
           <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
         </svg> Back </h5> </Link>
         <h3>Upload Image</h3>
@@ -146,4 +146,4 @@ const Upload = ({ user, msgAlert }) => {
   )
 }
 
-export default withRouter(Upload)
+export default withRouter(UploadLA)

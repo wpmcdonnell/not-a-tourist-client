@@ -96,17 +96,38 @@ textarea, .show-post-text, .show-comment-text {
   }
 }
 
-@media (min-width:800px) {
+@media (min-width:500px) {
   .index-posts {
-    padding-left: 28rem;
-    padding-right: 28rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 
-@media (min-width:800px) {
+@media (min-width:650px) {
+  .index-posts {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width:900px) {
   .show-post {
-    padding-left: 25rem;
-    padding-right: 25rem;
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+}
+
+@media (min-width:975px) {
+  .index-posts {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+}
+
+@media (min-width:1200px) {
+  .index-posts {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 }
 
