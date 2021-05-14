@@ -6,7 +6,7 @@ import apiUrl from './../apiConfig'
 import { Card } from 'react-bootstrap'
 
 // class
-class NYUpdatePicture extends Component {
+class TYOUpdatePicture extends Component {
   constructor () {
     super()
 
@@ -27,7 +27,7 @@ class NYUpdatePicture extends Component {
     // so this is a SHOW request (GET) to /posts/:id
     // This is not the update
     axios({
-      url: `${apiUrl}/ny-posts-pictures/${this.props.match.params.id}`,
+      url: `${apiUrl}/tokyo-posts-pictures/${this.props.match.params.id}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
@@ -78,7 +78,7 @@ class NYUpdatePicture extends Component {
 
     axios({
       method: 'PATCH',
-      url: `${apiUrl}/ny-posts-pictures/${this.props.match.params.id}`,
+      url: `${apiUrl}/tokyo-posts-pictures/${this.props.match.params.id}`,
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
       },
@@ -112,7 +112,7 @@ class NYUpdatePicture extends Component {
     const { cancel } = this.state
 
     if (this.state.updated || cancel) {
-      return <Redirect to={'/ny-posts/' + this.props.match.params.id}/>
+      return <Redirect to={'/tokyo-posts/' + this.props.match.params.id}/>
     }
     return (
       <Fragment>
@@ -155,4 +155,4 @@ class NYUpdatePicture extends Component {
 }
 
 // exports
-export default withRouter(NYUpdatePicture)
+export default withRouter(TYOUpdatePicture)

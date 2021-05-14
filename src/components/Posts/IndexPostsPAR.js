@@ -27,7 +27,8 @@ class IndexPostsPAR extends Component {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
       posts: null,
-      create: false
+      create: false,
+      pictures: null
     }
   }
 
@@ -48,6 +49,23 @@ class IndexPostsPAR extends Component {
         // Set the state to hold the array of posts
         // this will cause a re-render
         this.setState({ posts: response.data.posts.reverse() })
+      })
+      .catch(console.error)
+
+    axios({
+      url: `${apiUrl}/paris-posts-pictures`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+
+      .then(response => {
+        console.log(response.data)
+        // Set the state to hold the array of posts
+        // this will cause a re-render
+        this.setState({ pictures: response.data.pictures })
+        console.log(this.state.pictures)
       })
       .catch(console.error)
   }
@@ -79,20 +97,21 @@ class IndexPostsPAR extends Component {
 
     if (create) {
       return <Redirect to={'/create-post-paris'}/>
-    } else if (!this.state.posts) {
+    } else if (!this.state.posts || !this.state.pictures) {
       // if the posts state is null
       postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
       // if posts array has length of 0 it's empty
       postsJsx = <p>No posts! Go create some.</p>
-    } else {
+    } else if (this.state.posts && this.state.pictures) {
       // we have posts! display them
       postsJsx = (
         <div className='mb-1'>
-          {this.state.posts.map(post => (
-            <Card className='mb-2 shadow bg-white rounded'style={{ }} key={post._id}>
+          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => (
+            <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
+                  <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <Link to={`/paris-posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>

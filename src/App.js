@@ -43,10 +43,15 @@ import UploadNY from './PictureComponents/PictureUploadNY'
 import UploadDC from './PictureComponents/PictureUploadDC'
 import UploadLA from './PictureComponents/PictureUploadLA'
 import UploadSE from './PictureComponents/PictureUploadSE'
+import UploadPAR from './PictureComponents/PictureUploadPAR'
+import UploadTYO from './PictureComponents/PictureUploadTYO'
+
 import NYUpdatePicture from './PictureComponents/NYUpdatePicture'
 import SEUpdatePicture from './PictureComponents/SEUpdatePicture'
 import DCUpdatePicture from './PictureComponents/DCUpdatePicture'
 import LAUpdatePicture from './PictureComponents/LAUpdatePicture'
+import PARUpdatePicture from './PictureComponents/PARUpdatePicture'
+import TYOUpdatePicture from './PictureComponents/TYOUpdatePicture'
 
 class App extends Component {
   constructor (props) {
@@ -205,6 +210,12 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/se-picture-upload' render={() => (
             <UploadSE msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/paris-picture-upload' render={() => (
+            <UploadPAR msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/tokyo-picture-upload' render={() => (
+            <UploadTYO msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id/img-post-update' render={() => (
             <NYUpdatePicture msgAlert={this.msgAlert} user={user} />
           )} />
@@ -216,6 +227,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/la-posts/:id/img-post-update' render={() => (
             <LAUpdatePicture msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/paris-posts/:id/img-post-update' render={() => (
+            <PARUpdatePicture msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/la-posts/:id/img-post-update' render={() => (
+            <TYOUpdatePicture msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

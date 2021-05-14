@@ -15,7 +15,8 @@ class CreatePostPAR extends Component {
       // Boolean to handle before/after of submitting
       // created: false
       // Store the post's ID in the state, initially null
-      createdId: null
+      createdId: null,
+      image: false
     }
   }
 
@@ -30,6 +31,10 @@ class CreatePostPAR extends Component {
       // spread operator ends up merging these two objects
       return { post: { ...oldState.post, ...updatedField } }
     })
+  }
+
+  imageChange = () => {
+    this.setState({ image: true })
   }
 
   handleSubmit = (event) => {
@@ -77,6 +82,8 @@ class CreatePostPAR extends Component {
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
       return <Redirect to={`/paris-posts/${this.state.createdId}`}/>
+    } else if (this.state.image) {
+      return <Redirect to='/paris-picture-upload/'/>
     }
 
     return (
@@ -105,7 +112,11 @@ class CreatePostPAR extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <button className='btn btn-primary mb-5 shadow-sm' type="submit">Create New Post</button>
+              <div className='create-post-buttons row align-items-center'>
+                <button className='btn btn-primary mb-5 mr-4 shadow' type="submit">Post</button>
+                <div className=' mr-4 mb-5 d-inline'>or</div>
+                <button className='btn btn-primary mb-5 shadow d-inline' onClick={this.imageChange}>Upload Image</button>
+              </div>
             </form>
           </div>
         </div>
