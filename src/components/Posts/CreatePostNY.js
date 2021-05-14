@@ -114,10 +114,10 @@ class CreatePostNY extends Component {
                 value={this.state.post.list}
                 onChange={this.handleChange}
               />
-              <div className='row align-items-baseline justify-content-around'>
-                <button className='btn btn-primary mb-5 shadow-sm' type="submit">Post</button>
-                <p className='d-inline'>or</p>
-                <button className='btn btn-primary mb-5 shadow-sm d-inline' onClick={this.imageChange}>Upload Image</button>
+              <div className='create-post-buttons row align-items-center'>
+                <button className='btn btn-primary mb-5 mr-4 shadow' type="submit">Post</button>
+                <div className=' mr-4 mb-5 d-inline'>or</div>
+                <button className='btn btn-primary mb-5 shadow d-inline' onClick={this.imageChange}>Upload Image</button>
               </div>
             </form>
           </div>

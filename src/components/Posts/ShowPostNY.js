@@ -178,7 +178,7 @@ class ShowPostNY extends Component {
       postJsx = (
         <div className='mb-4 mx-auto'>
           <p className='post-date mb-1'>{moment(picture.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {picture.ownerName} </p></p>
-          <Card className='mt-2 mb-2 shadow-lg bg-white rounded'>
+          <Card className='mt-2 mb-3 shadow-lg bg-white rounded'>
             <Card.Body className=''>
               <Card.Title>
                 <Card.Img variant="top" src={picture.url}/>

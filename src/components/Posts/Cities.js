@@ -4,7 +4,7 @@
 
 // 1. Imports
 import React, { Component } from 'react'
-import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import { Card, Button } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
 // axios package (HTTP requests)
@@ -103,7 +103,6 @@ class Cities extends Component {
             <Card.Body>
               <Card.Title>Seattle, WA</Card.Title>
               <Button variant='primary' onClick={this.seattle}>SE</Button>
-              <Link to='/se-fashion/' className='align-self-end'> Fashion </Link>
             </Card.Body>
           </Card>
           <Card className="mb-5 shadow" style={{ width: '18rem' }}>
@@ -111,7 +110,6 @@ class Cities extends Component {
             <Card.Body>
               <Card.Title>Los Angeles, CA</Card.Title>
               <Button variant='primary' onClick={this.losAngeles}>LA</Button>
-              <Link to='/la-fashion/' className='align-self-end'> Fashion </Link>
             </Card.Body>
           </Card>
           <Card className="mb-5 shadow" style={{ width: '18rem' }}>
