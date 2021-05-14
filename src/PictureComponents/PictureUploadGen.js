@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/Image'
 import Spinner from 'react-bootstrap/Spinner'
 import { Col } from 'react-bootstrap'
 
-const Upload = ({ user, msgAlert }) => {
+const UploadGen = ({ user, msgAlert }) => {
   const [title, setTitle] = useState('')
   const [list, setList] = useState('')
   const [image, setImage] = useState(null)
@@ -146,4 +146,4 @@ const Upload = ({ user, msgAlert }) => {
   )
 }
 
-export default withRouter(Upload)
+export default withRouter(UploadGen)

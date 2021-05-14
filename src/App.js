@@ -45,6 +45,7 @@ import UploadLA from './PictureComponents/PictureUploadLA'
 import UploadSE from './PictureComponents/PictureUploadSE'
 import UploadPAR from './PictureComponents/PictureUploadPAR'
 import UploadTYO from './PictureComponents/PictureUploadTYO'
+import UploadGen from './PictureComponents/PictureUploadGen'
 
 import NYUpdatePicture from './PictureComponents/NYUpdatePicture'
 import SEUpdatePicture from './PictureComponents/SEUpdatePicture'
@@ -52,6 +53,7 @@ import DCUpdatePicture from './PictureComponents/DCUpdatePicture'
 import LAUpdatePicture from './PictureComponents/LAUpdatePicture'
 import PARUpdatePicture from './PictureComponents/PARUpdatePicture'
 import TYOUpdatePicture from './PictureComponents/TYOUpdatePicture'
+import GENUpdatePicture from './PictureComponents/GENUpdatePicture'
 
 class App extends Component {
   constructor (props) {
@@ -216,6 +218,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/tokyo-picture-upload' render={() => (
             <UploadTYO msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/picture-upload' render={() => (
+            <UploadGen msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path='/ny-posts/:id/img-post-update' render={() => (
             <NYUpdatePicture msgAlert={this.msgAlert} user={user} />
           )} />
@@ -233,6 +238,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/la-posts/:id/img-post-update' render={() => (
             <TYOUpdatePicture msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/posts/:id/img-post-update' render={() => (
+            <GENUpdatePicture msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

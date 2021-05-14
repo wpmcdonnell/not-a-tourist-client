@@ -78,46 +78,6 @@ class ShowPostDC extends Component {
       .catch(console.error)
   }
 
-  handleSubmit = (event) => {
-    const user = this.props.user
-    // Prevent the page from refreshing!
-    event.preventDefault()
-    // axios.post(`${apiUrl}/posts`, {
-    //   post: this.state.post
-    // })
-    axios({
-      url: `${apiUrl}/comments`,
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      },
-      data: { comment: this.state.comment }
-    })
-      .then(response => {
-        // Reset the form by resetting the state to empty values
-        // this.setState({ post: { title: '', list: '' } })
-        // Boolean did we do the thing
-        // this.setState({ created: true })
-        // Store the ID of the created post
-        this.setState({ createdId: response.data.comment._id })
-      })
-      .catch(console.error)
-  }
-
-  handleChange = (event) => {
-    event.persist()
-    event.preventDefault()
-    this.setState(oldState => {
-      const value = event.target.value
-      const name = event.target.name
-
-      const updatedField = { [name]: value }
-
-      // spread operator ends up merging these two objects
-      return { comment: { ...oldState.comment, ...updatedField } }
-    })
-  }
-
   update = (event) => {
     // Upon successful delete, we want to do something
     // a common pattern w/ React is when something happens

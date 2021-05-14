@@ -6,7 +6,7 @@ import apiUrl from './../apiConfig'
 import { Card } from 'react-bootstrap'
 
 // class
-class UpdatePicture extends Component {
+class GENUpdatePicture extends Component {
   constructor () {
     super()
 
@@ -155,4 +155,4 @@ class UpdatePicture extends Component {
 }
 
 // exports
-export default withRouter(UpdatePicture)
+export default withRouter(GENUpdatePicture)
