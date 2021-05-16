@@ -4,7 +4,6 @@
 
 // 1. Imports
 import React, { Component, Fragment } from 'react'
-
 import { Redirect, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { Card } from 'react-bootstrap'
@@ -29,7 +28,9 @@ class IndexPosts extends Component {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
       posts: null,
-      create: false
+      create: false,
+      count: 0,
+      hasVoted: false
     }
   }
 
@@ -69,10 +70,57 @@ class IndexPosts extends Component {
         console.log(this.state.pictures)
       })
       .catch(console.error)
+
+    if (this.state.hasvoted) {
+      axios({
+        url: `${apiUrl}/posts-pictures/${this.props.match.params.id}`,
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: { upvoted: +1 }
+      })
+
+        .then(response => {
+          console.log(response.data)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+          this.setState({ pictures: response.data.pictures })
+          console.log(this.state.pictures)
+        })
+        .catch(console.error)
+    }
   }
 
   create = (event) => {
     return this.setState({ create: true })
+  }
+
+  increment = (event) => {
+    const user = this.props.user
+    this.setState({
+      count: this.state.count + 1,
+      hasVoted: true
+    })
+    axios({
+      url: `${apiUrl}/posts-pictures/${event}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      },
+      data: {
+        picture: {
+          upvote: +1
+        }
+      }
+    })
+
+      .then(response => {
+        console.log(response.data)
+        // Set the state to hold the array of posts
+        // this will cause a re-render
+      })
+      .catch(console.error)
   }
 
   // render is REQUIRED for any class component
@@ -113,6 +161,12 @@ class IndexPosts extends Component {
               <Card.Body>
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
+                  <div>
+                    {this.state.count < 1 && <button onClick={() => this.increment(post._id)}>
+                      +
+                    </button>}
+                    <span>{post.upvote}</span>
+                  </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
