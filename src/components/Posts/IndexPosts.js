@@ -36,7 +36,8 @@ class IndexPosts extends Component {
       create: false,
       count: 0,
       hasVoted: false,
-      iconClickedStyle: 'icon mr-2'
+      iconClickedStyle: 'icon mr-2',
+      postid: []
     }
   }
 
@@ -88,7 +89,8 @@ class IndexPosts extends Component {
       this.setState({
         count: this.state.count + 1,
         hasVoted: true,
-        iconClickedStyle: 'icon-clicked animate mr-2'
+        iconClickedStyle: 'icon-clicked animate mr-2',
+        postid: event._id
       })
       console.log(this.state.count)
       axios({
@@ -170,8 +172,8 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div>
-                    <FontAwesomeIcon className={this.state.iconClickedStyle} icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
-                    <span>{ this.state.hasVoted ? post.upvote + 1 : post.upvote }</span>
+                    <FontAwesomeIcon className={this.state.hasVoted && (this.state.postid === post._id) ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
+                    <span>{ this.state.hasVoted && (this.state.postid === post._id) ? post.upvote + 1 : post.upvote }</span>
                   </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
