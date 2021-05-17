@@ -90,8 +90,8 @@ textarea, .show-post-text, .show-comment-text {
     box-shadow: 0 10px 20px $primary;
 }
 
-.icon-clicked {
-    animation: moveInBottom .25s ease-out;
+.icon:active {
+    animation: moveInBottom .4s;
     animation-fill-mode: backwards;
 }
 
@@ -103,11 +103,11 @@ textarea, .show-post-text, .show-comment-text {
 
     50% {
         opacity: .5;
-        transform: translateY(-15px);
+        transform: translateY(-13px);
     }
     60% {
       opacity: .5;
-      transform: translateY(-15px);
+      transform: translateY(-13px);
     }
 
     100% {

@@ -35,8 +35,7 @@ class IndexPosts extends Component {
       posts: null,
       create: false,
       count: 0,
-      hasVoted: false,
-      iconClickedStyle: 'icon mr-2',
+      iconClickedStyle: 'icon-clicked mr-2',
       postid: []
     }
   }
@@ -85,13 +84,14 @@ class IndexPosts extends Component {
 
   increment = (event) => {
     const user = this.props.user
-    if (!this.state.hasVoted) {
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) {
       this.setState({
         count: this.state.count + 1,
-        hasVoted: true,
-        iconClickedStyle: 'icon-clicked animate mr-2',
-        postid: event._id
+        // iconClickedStyle: 'icon-clicked animate mr-2',
+        postid: this.state.postid.concat(event._id)
       })
+      // console.log(this.state.postid.filter(id => id === event._id))
+      console.log(typeof event._id.toString())
       console.log(this.state.count)
       axios({
         url: `${apiUrl}/posts-pictures/${event._id}`,
@@ -172,8 +172,8 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div>
-                    <FontAwesomeIcon className={this.state.hasVoted && (this.state.postid === post._id) ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
-                    <span>{ this.state.hasVoted && (this.state.postid === post._id) ? post.upvote + 1 : post.upvote }</span>
+                    <FontAwesomeIcon className={this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.increment(post)}/>
+                    <span>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? post.upvote + 1 : post.upvote }</span>
                   </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
@@ -196,7 +196,7 @@ class IndexPosts extends Component {
             <h1 className='mb-1'>GENERAL TOPICS</h1>
             <Button className='mb-2 shadow' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3 className='mb-3'>Check out all the sweet posts</h3>
-            <div key={this.state.count}>
+            <div>
               {postsJsx}
             </div>
           </div>
