@@ -7,6 +7,9 @@ import React, { Component, Fragment } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { Card } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
+
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -14,6 +17,9 @@ import axios from 'axios'
 import apiUrl from './../../apiConfig'
 import moment from 'moment'
 
+export const Showcase = () => (
+  <FontAwesomeIcon icon={['fab', 'apple']} />
+)
 // 2. The class
 class IndexPosts extends Component {
   // 2 very important React class component methods
@@ -22,7 +28,6 @@ class IndexPosts extends Component {
     // Set up the constructor, allow us to override some of what
     // we inherit
     super()
-
     // useFUL constructor sets state
     this.state = {
       // We'll be modifying the state after we get our data
@@ -70,26 +75,6 @@ class IndexPosts extends Component {
         console.log(this.state.pictures)
       })
       .catch(console.error)
-
-    if (this.state.hasvoted) {
-      axios({
-        url: `${apiUrl}/posts-pictures/${this.props.match.params.id}`,
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: { upvoted: +1 }
-      })
-
-        .then(response => {
-          console.log(response.data)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
-          this.setState({ pictures: response.data.pictures })
-          console.log(this.state.pictures)
-        })
-        .catch(console.error)
-    }
   }
 
   create = (event) => {
@@ -103,20 +88,19 @@ class IndexPosts extends Component {
       hasVoted: true
     })
     axios({
-      url: `${apiUrl}/posts-pictures/${event}`,
+      url: `${apiUrl}/posts-pictures/${event._id}`,
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${user.token}`
       },
       data: {
         picture: {
-          upvote: +1
+          upvote: event.upvote + 1
         }
       }
     })
-
       .then(response => {
-        console.log(response.data)
+        console.log(response)
         // Set the state to hold the array of posts
         // this will cause a re-render
       })
@@ -162,9 +146,8 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div>
-                    {this.state.count < 1 && <button onClick={() => this.increment(post._id)}>
-                      +
-                    </button>}
+                    {this.state.count < 1 && <FontAwesomeIcon className='icon' icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />}
+                    <i className="far fa-arrow-alt-circle-up"></i>
                     <span>{post.upvote}</span>
                   </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
