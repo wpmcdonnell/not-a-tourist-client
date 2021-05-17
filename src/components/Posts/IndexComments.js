@@ -57,6 +57,7 @@ class IndexComments extends Component {
     const msgAlert = this.props.msgAlert
     console.log(event.target.id)
     console.log(this.state.value)
+    console.log(this.props.user)
     // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: apiUrl + '/comments/' + event.target.id,
