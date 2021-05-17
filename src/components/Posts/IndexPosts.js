@@ -87,6 +87,7 @@ class IndexPosts extends Component {
       count: this.state.count + 1,
       hasVoted: true
     })
+    console.log(this.state.count)
     axios({
       url: `${apiUrl}/posts-pictures/${event._id}`,
       method: 'PATCH',
@@ -96,6 +97,25 @@ class IndexPosts extends Component {
       data: {
         picture: {
           upvote: event.upvote + 1
+        }
+      }
+    })
+      .then(response => {
+        console.log(response)
+        // Set the state to hold the array of posts
+        // this will cause a re-render
+      })
+      .catch(console.error)
+
+    axios({
+      url: `${apiUrl}/posts/${event._id}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      },
+      data: {
+        post: {
+          upvote: 0 + event.upvote + 1
         }
       }
     })
@@ -140,29 +160,28 @@ class IndexPosts extends Component {
       // we have posts! display them
       postsJsx = (
         <div className='mb-1'>
-          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => (
+          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post =>
             <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div>
-                    {this.state.count < 1 && <FontAwesomeIcon className='icon' icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />}
-                    <i className="far fa-arrow-alt-circle-up"></i>
-                    <span>{post.upvote}</span>
+                    <FontAwesomeIcon className='icon' icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
+                    <span>{ this.state.hasVoted ? post.upvote + 1 : post.upvote }</span>
                   </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
-          ))}
+          )}
         </div>
       )
     }
 
     // Variable is referenced as JS in the JSX block
     return (
-      <Fragment>
+      <Fragment key={this.state.count}>
         <div className='index-posts' style={indexPostStyle}>
           <div className='mx-auto mb-5'>
             <Link className='text-black mb-3' to={'/cities/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
@@ -171,7 +190,9 @@ class IndexPosts extends Component {
             <h1 className='mb-1'>GENERAL TOPICS</h1>
             <Button className='mb-2 shadow' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3 className='mb-3'>Check out all the sweet posts</h3>
-            {postsJsx}
+            <div key={this.state.count}>
+              {postsJsx}
+            </div>
           </div>
         </div>
       </Fragment>
