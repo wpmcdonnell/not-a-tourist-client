@@ -35,7 +35,8 @@ class IndexPosts extends Component {
       posts: null,
       create: false,
       count: 0,
-      hasVoted: false
+      hasVoted: false,
+      iconClickedStyle: 'icon mr-2'
     }
   }
 
@@ -83,48 +84,51 @@ class IndexPosts extends Component {
 
   increment = (event) => {
     const user = this.props.user
-    this.setState({
-      count: this.state.count + 1,
-      hasVoted: true
-    })
-    console.log(this.state.count)
-    axios({
-      url: `${apiUrl}/posts-pictures/${event._id}`,
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      },
-      data: {
-        picture: {
-          upvote: event.upvote + 1
-        }
-      }
-    })
-      .then(response => {
-        console.log(response)
-        // Set the state to hold the array of posts
-        // this will cause a re-render
+    if (!this.state.hasVoted) {
+      this.setState({
+        count: this.state.count + 1,
+        hasVoted: true,
+        iconClickedStyle: 'icon-clicked animate mr-2'
       })
-      .catch(console.error)
+      console.log(this.state.count)
+      axios({
+        url: `${apiUrl}/posts-pictures/${event._id}`,
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: {
+          picture: {
+            upvote: event.upvote + 1
+          }
+        }
+      })
+        .then(response => {
+          console.log(response)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+        })
+        .catch(console.error)
 
-    axios({
-      url: `${apiUrl}/posts/${event._id}`,
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      },
-      data: {
-        post: {
-          upvote: 0 + event.upvote + 1
+      axios({
+        url: `${apiUrl}/posts/${event._id}`,
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: {
+          post: {
+            upvote: 0 + event.upvote + 1
+          }
         }
-      }
-    })
-      .then(response => {
-        console.log(response)
-        // Set the state to hold the array of posts
-        // this will cause a re-render
       })
-      .catch(console.error)
+        .then(response => {
+          console.log(response)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+        })
+        .catch(console.error)
+    }
   }
 
   // render is REQUIRED for any class component
@@ -166,7 +170,7 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div>
-                    <FontAwesomeIcon className='icon' icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
+                    <FontAwesomeIcon className={this.state.iconClickedStyle} icon={faArrowAltCircleUp} onClick={() => this.increment(post)} />
                     <span>{ this.state.hasVoted ? post.upvote + 1 : post.upvote }</span>
                   </div>
                   <Link to={`/posts/${post._id}`}>{post.title}</Link>

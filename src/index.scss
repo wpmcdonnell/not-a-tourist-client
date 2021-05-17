@@ -81,6 +81,42 @@ textarea, .show-post-text, .show-comment-text {
   color: $primary;
 }
 
+.icon-clicked {
+  color: darken($primary, 20%)
+}
+
+.icon:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px $primary;
+}
+
+.icon-clicked {
+    animation: moveInBottom .25s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    50% {
+        opacity: .5;
+        transform: translateY(-15px);
+    }
+    60% {
+      opacity: .5;
+      transform: translateY(-15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
 // .card-button-line {
 //   display: flex;
 //   justify-content: space-around;
