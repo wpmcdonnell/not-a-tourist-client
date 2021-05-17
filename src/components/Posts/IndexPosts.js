@@ -171,11 +171,11 @@ class IndexPosts extends Component {
               <Card.Body>
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
-                  <div>
+                  <div className='d-inline'>
                     <FontAwesomeIcon className={this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.increment(post)}/>
-                    <span>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? post.upvote + 1 : post.upvote }</span>
+                    <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? post.upvote + 1 : post.upvote }</span>
+                    <Link className='d-inline col-md-4 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
                   </div>
-                  <Link to={`/posts/${post._id}`}>{post.title}</Link>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
