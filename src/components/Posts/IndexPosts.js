@@ -37,7 +37,7 @@ class IndexPosts extends Component {
       count: 0,
       iconClickedStyle: 'icon-clicked mr-2',
       postid: [],
-      postUpVoteUserId: []
+      unvotedBankId: [0]
     }
   }
 
@@ -57,7 +57,7 @@ class IndexPosts extends Component {
       .then(response => {
         // Set the state to hold the array of posts
         // this will cause a re-render
-        this.setState({ posts: response.data.posts.reverse(), postUpVoteUserId: this.state.postUpVoteUserId.concat(response.data.posts.upvoteUserId) })
+        this.setState({ posts: response.data.posts.reverse() })
       })
       .catch(console.error)
 
@@ -83,13 +83,13 @@ class IndexPosts extends Component {
 
   decrement = (event) => {
     console.log('derement is happening')
-    console.log(this.state.postUpVoteUserId)
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.find(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
       this.setState({
         count: this.state.count + 1,
         // iconClickedStyle: 'icon-clicked animate mr-2',
-        postid: this.state.postid.filter(id => id !== event._id)
+        postid: this.state.postid.filter(id => id !== event._id),
+        unvotedBankId: this.state.unvotedBankId.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
       console.log(this.props.user._id)
@@ -191,8 +191,7 @@ class IndexPosts extends Component {
         },
         data: {
           post: {
-            upvote: 0 + event.upvote + 1,
-            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+            upvote: 0 + event.upvote + 1
           }
         }
       })
@@ -202,11 +201,32 @@ class IndexPosts extends Component {
           // this will cause a re-render
         })
         .catch(console.error)
+
+      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
     }
   }
 
   consolelog = (event) => {
-    console.log(this.state.postUpVoteUserId)
+    return console.log(event.upvoteUserId.filter(id => id !== this.props.user._id))
   }
 
   // render is REQUIRED for any class component
@@ -248,11 +268,13 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div className='d-inline'>
-                    <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid === [])) ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.decrement(post) : this.increment(post)}/>
+                    <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid.filter(id => id === post._id).toString() !== post._id.toString()) && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id.toString()) ? this.state.iconClickedStyle : 'icon mr-2'}
+
+                      icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || (post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id) ? this.decrement(post) : this.increment(post)}/>
                     <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
                     <Link className='d-inline col-md-3 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
                   </div>
-                  <button onClick={this.consolelog(post)}>click</button>
+                  <button onClick={() => this.consolelog(post)}>click</button>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
