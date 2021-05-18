@@ -84,7 +84,7 @@ class IndexPosts extends Component {
   decrement = (event) => {
     console.log('derement is happening')
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.find(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
       this.setState({
         count: this.state.count + 1,
         // iconClickedStyle: 'icon-clicked animate mr-2',
@@ -94,69 +94,96 @@ class IndexPosts extends Component {
       // console.log(this.state.postid.filter(id => id === event._id))
       console.log(this.props.user._id)
       console.log(event.upvoteUserId)
-      axios({
-        url: `${apiUrl}/posts-pictures/${event._id}`,
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: {
-          picture: {
-            upvote: 0 + event.upvote - 1
+      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+        console.log('patch for coming back to page after upvoting')
+        axios({
+          url: `${apiUrl}/posts-pictures/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            picture: {
+              upvote: 0 + event.upvote - 1,
+              upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+            }
           }
-        }
-      })
-        .then(response => {
-          console.log(response)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
         })
-        .catch(console.error)
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
 
-      axios({
-        url: `${apiUrl}/posts/${event._id}`,
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: {
-          post: {
-            upvote: 0 + event.upvote - 1
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvote: 0 + event.upvote - 1,
+              upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+            }
           }
-        }
-      })
-        .then(response => {
-          console.log(response)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
         })
-        .catch(console.error)
-      console.log()
-      console.log('right after vote')
-      axios({
-        url: `${apiUrl}/posts/${event._id}`,
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: {
-          post: {
-            upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
+      if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString()) {
+        console.log('unvote if on same page')
+        axios({
+          url: `${apiUrl}/posts-pictures/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            picture: {
+              upvote: 0 + event.upvote,
+              upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+            }
           }
-        }
-      })
-        .then(response => {
-          console.log(response.data)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
         })
-        .catch(console.error)
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvote: 0 + event.upvote,
+              upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
     }
   }
 
   increment = (event) => {
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId !== this.props.user._id) {
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
       this.setState({
         count: this.state.count + 1,
         // iconClickedStyle: 'icon-clicked animate mr-2',
@@ -172,7 +199,8 @@ class IndexPosts extends Component {
         },
         data: {
           picture: {
-            upvote: event.upvote + 1
+            upvote: event.upvote + 1,
+            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
           }
         }
       })
@@ -191,7 +219,8 @@ class IndexPosts extends Component {
         },
         data: {
           post: {
-            upvote: 0 + event.upvote + 1
+            upvote: 0 + event.upvote + 1,
+            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
           }
         }
       })
@@ -202,31 +231,31 @@ class IndexPosts extends Component {
         })
         .catch(console.error)
 
-      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
-        axios({
-          url: `${apiUrl}/posts/${event._id}`,
-          method: 'PATCH',
-          headers: {
-            'Authorization': `Bearer ${user.token}`
-          },
-          data: {
-            post: {
-              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
-            }
-          }
-        })
-          .then(response => {
-            console.log(response)
-            // Set the state to hold the array of posts
-            // this will cause a re-render
-          })
-          .catch(console.error)
-      }
+      // if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+      //   axios({
+      //     url: `${apiUrl}/posts/${event._id}`,
+      //     method: 'PATCH',
+      //     headers: {
+      //       'Authorization': `Bearer ${user.token}`
+      //     },
+      //     data: {
+      //       post: {
+      //         upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+      //       }
+      //     }
+      //   })
+      //     .then(response => {
+      //       console.log(response)
+      //       // Set the state to hold the array of posts
+      //       // this will cause a re-render
+      //     })
+      //     .catch(console.error)
+      // }
     }
   }
 
   consolelog = (event) => {
-    return console.log(event.upvoteUserId.filter(id => id !== this.props.user._id))
+    return console.log(event.upvoteUserId.filter(id => id === this.props.user._id), event.upvote)
   }
 
   // render is REQUIRED for any class component
