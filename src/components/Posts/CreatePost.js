@@ -11,7 +11,8 @@ class CreatePost extends Component {
       post: {
         title: '',
         list: '',
-        upvote: 0
+        upvote: 0,
+        upvoteUserId: [0]
       },
       // Boolean to handle before/after of submitting
       // created: false

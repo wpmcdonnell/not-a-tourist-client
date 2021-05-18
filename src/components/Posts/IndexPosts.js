@@ -36,7 +36,8 @@ class IndexPosts extends Component {
       create: false,
       count: 0,
       iconClickedStyle: 'icon-clicked mr-2',
-      postid: []
+      postid: [],
+      postUpVoteUserId: []
     }
   }
 
@@ -56,7 +57,7 @@ class IndexPosts extends Component {
       .then(response => {
         // Set the state to hold the array of posts
         // this will cause a re-render
-        this.setState({ posts: response.data.posts.reverse() })
+        this.setState({ posts: response.data.posts.reverse(), postUpVoteUserId: this.state.postUpVoteUserId.concat(response.data.posts.upvoteUserId) })
       })
       .catch(console.error)
 
@@ -69,11 +70,9 @@ class IndexPosts extends Component {
     })
 
       .then(response => {
-        console.log(response.data)
         // Set the state to hold the array of posts
         // this will cause a re-render
         this.setState({ pictures: response.data.pictures })
-        console.log(this.state.pictures)
       })
       .catch(console.error)
   }
@@ -82,17 +81,89 @@ class IndexPosts extends Component {
     return this.setState({ create: true })
   }
 
+  decrement = (event) => {
+    console.log('derement is happening')
+    console.log(this.state.postUpVoteUserId)
+    const user = this.props.user
+    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+      this.setState({
+        count: this.state.count + 1,
+        // iconClickedStyle: 'icon-clicked animate mr-2',
+        postid: this.state.postid.filter(id => id !== event._id)
+      })
+      // console.log(this.state.postid.filter(id => id === event._id))
+      console.log(this.props.user._id)
+      console.log(event.upvoteUserId)
+      axios({
+        url: `${apiUrl}/posts-pictures/${event._id}`,
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: {
+          picture: {
+            upvote: 0 + event.upvote - 1
+          }
+        }
+      })
+        .then(response => {
+          console.log(response)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+        })
+        .catch(console.error)
+
+      axios({
+        url: `${apiUrl}/posts/${event._id}`,
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: {
+          post: {
+            upvote: 0 + event.upvote - 1
+          }
+        }
+      })
+        .then(response => {
+          console.log(response)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+        })
+        .catch(console.error)
+      console.log()
+      console.log('right after vote')
+      axios({
+        url: `${apiUrl}/posts/${event._id}`,
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        },
+        data: {
+          post: {
+            upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+          }
+        }
+      })
+        .then(response => {
+          console.log(response.data)
+          // Set the state to hold the array of posts
+          // this will cause a re-render
+        })
+        .catch(console.error)
+    }
+  }
+
   increment = (event) => {
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) {
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId !== this.props.user._id) {
       this.setState({
         count: this.state.count + 1,
         // iconClickedStyle: 'icon-clicked animate mr-2',
         postid: this.state.postid.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      console.log(typeof event._id.toString())
-      console.log(this.state.count)
+      console.log('state upvotes user id field', this.state.postUpVoteUserId)
       axios({
         url: `${apiUrl}/posts-pictures/${event._id}`,
         method: 'PATCH',
@@ -120,7 +191,8 @@ class IndexPosts extends Component {
         },
         data: {
           post: {
-            upvote: 0 + event.upvote + 1
+            upvote: 0 + event.upvote + 1,
+            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
           }
         }
       })
@@ -131,6 +203,10 @@ class IndexPosts extends Component {
         })
         .catch(console.error)
     }
+  }
+
+  consolelog = (event) => {
+    console.log(this.state.postUpVoteUserId)
   }
 
   // render is REQUIRED for any class component
@@ -172,10 +248,11 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div className='d-inline'>
-                    <FontAwesomeIcon className={this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.increment(post)}/>
-                    <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() ? post.upvote + 1 : post.upvote }</span>
-                    <Link className='d-inline col-md-4 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
+                    <FontAwesomeIcon className={this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.decrement(post) : this.increment(post)}/>
+                    <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
+                    <Link className='d-inline col-md-3 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
                   </div>
+                  <button onClick={this.consolelog(post)}>click</button>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
