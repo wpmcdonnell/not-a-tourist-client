@@ -87,13 +87,10 @@ class IndexPosts extends Component {
     if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
       this.setState({
         count: this.state.count + 1,
-        // iconClickedStyle: 'icon-clicked animate mr-2',
-        postid: this.state.postid.filter(id => id !== event._id),
+        // iconClickedStyle: 'icon-clicked animate mr-2',,
         unvotedBankId: this.state.unvotedBankId.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      console.log(this.props.user._id)
-      console.log(event.upvoteUserId)
       if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
         console.log('patch for coming back to page after upvoting')
         axios({
@@ -138,6 +135,7 @@ class IndexPosts extends Component {
       }
       if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString()) {
         console.log('unvote if on same page')
+        this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
           method: 'PATCH',
@@ -183,79 +181,148 @@ class IndexPosts extends Component {
 
   increment = (event) => {
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
       this.setState({
-        count: this.state.count + 1,
+        count: this.state.count + 1
         // iconClickedStyle: 'icon-clicked animate mr-2',
-        postid: this.state.postid.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      console.log('state upvotes user id field', this.state.postUpVoteUserId)
-      axios({
-        url: `${apiUrl}/posts-pictures/${event._id}`,
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: {
-          picture: {
-            upvote: event.upvote + 1,
-            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
-          }
-        }
-      })
-        .then(response => {
-          console.log(response)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
-        })
-        .catch(console.error)
 
-      axios({
-        url: `${apiUrl}/posts/${event._id}`,
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        },
-        data: {
-          post: {
-            upvote: 0 + event.upvote + 1,
-            upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+      if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+        console.log('upvoting with no postid in state ')
+        this.setState({
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id),
+          postid: this.state.postid.concat(event._id) })
+        axios({
+          url: `${apiUrl}/posts-pictures/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            picture: {
+              upvote: event.upvote + 1,
+              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+            }
           }
-        }
-      })
-        .then(response => {
-          console.log(response)
-          // Set the state to hold the array of posts
-          // this will cause a re-render
         })
-        .catch(console.error)
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
 
-      // if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
-      //   axios({
-      //     url: `${apiUrl}/posts/${event._id}`,
-      //     method: 'PATCH',
-      //     headers: {
-      //       'Authorization': `Bearer ${user.token}`
-      //     },
-      //     data: {
-      //       post: {
-      //         upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
-      //       }
-      //     }
-      //   })
-      //     .then(response => {
-      //       console.log(response)
-      //       // Set the state to hold the array of posts
-      //       // this will cause a re-render
-      //     })
-      //     .catch(console.error)
-      // }
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvote: 0 + event.upvote + 1,
+              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
+
+      if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
+        console.log('upvoting with no postid in state and no id in bank')
+        this.setState({
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id),
+          postid: this.state.postid.concat(event._id) })
+        axios({
+          url: `${apiUrl}/posts-pictures/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            picture: {
+              upvote: event.upvote
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvote: 0 + event.upvote
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
+      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
+        this.setState({ postid: this.state.postid.concat(event._id) })
+        console.log('should send only if has no schema upvoteUserId')
+        axios({
+          url: `${apiUrl}/posts-pictures/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            picture: {
+              upvote: event.upvote
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+
+        axios({
+          url: `${apiUrl}/posts/${event._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          },
+          data: {
+            post: {
+              upvote: 0 + event.upvote
+            }
+          }
+        })
+          .then(response => {
+            console.log(response)
+            // Set the state to hold the array of posts
+            // this will cause a re-render
+          })
+          .catch(console.error)
+      }
     }
   }
 
   consolelog = (event) => {
-    return console.log(event.upvoteUserId.filter(id => id === this.props.user._id), event.upvote)
+    return console.log('this is event.upvot', event.upvote, 'this is event upvote userid', event.upvoteUserId, 'this is postid state', this.state.postid, 'this is send to userid schema', event.upvoteUserId.filter(id => id !== this.props.user._id))
   }
 
   // render is REQUIRED for any class component
