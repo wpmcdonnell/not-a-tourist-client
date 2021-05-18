@@ -248,7 +248,7 @@ class IndexPosts extends Component {
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
                   <div className='d-inline'>
-                    <FontAwesomeIcon className={this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.decrement(post) : this.increment(post)}/>
+                    <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid === [])) ? this.state.iconClickedStyle : 'icon mr-2'} icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() ? this.decrement(post) : this.increment(post)}/>
                     <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
                     <Link className='d-inline col-md-3 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
                   </div>
