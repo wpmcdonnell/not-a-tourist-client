@@ -92,8 +92,11 @@ class IndexPosts extends Component {
         unvotedBankId: this.state.unvotedBankId.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) {
-        this.setState({ pageflipper: 1 })
+      if ((event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) || (this.state.pageflipper === 1)) {
+        this.setState({
+          pageflipper: 1,
+          postid: this.state.postid.filter(id => id !== event._id)
+        })
         console.log('patch for coming back to page after upvoting')
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
@@ -135,7 +138,7 @@ class IndexPosts extends Component {
           })
           .catch(console.error)
       }
-      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString()) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString())) {
+      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.pageflipper === 0)) {
         console.log('unvote if on same page')
         this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
         axios({
