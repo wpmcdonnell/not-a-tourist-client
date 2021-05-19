@@ -199,7 +199,7 @@ class IndexPosts extends Component {
       })
       // console.log(this.state.postid.filter(id => id === event._id))
 
-      if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) {
+      if ((this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && event.upvote === 0)) {
         console.log('upvoting with no postid in state and no user id in schema ')
         this.setState({
           postid: this.state.postid.concat(event._id),
@@ -297,6 +297,7 @@ class IndexPosts extends Component {
       if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
         this.setState({ postid: this.state.postid.concat(event._id),
           unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
+
         console.log('should send only if has no schema upvoteUserId')
         if (event.upvoteUserId.find(id => id === 1) === 1) {
           axios({
