@@ -91,7 +91,7 @@ class IndexPosts extends Component {
         unvotedBankId: this.state.unvotedBankId.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) {
         console.log('patch for coming back to page after upvoting')
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
@@ -133,7 +133,7 @@ class IndexPosts extends Component {
           })
           .catch(console.error)
       }
-      if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString()) {
+      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString()) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString())) {
         console.log('unvote if on same page')
         this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
         axios({
@@ -189,10 +189,10 @@ class IndexPosts extends Component {
       // console.log(this.state.postid.filter(id => id === event._id))
 
       if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
-        console.log('upvoting with no postid in state ')
+        console.log('upvoting with no postid in state and no user id in schema ')
         this.setState({
-          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id),
-          postid: this.state.postid.concat(event._id) })
+          postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
           method: 'PATCH',
@@ -235,10 +235,10 @@ class IndexPosts extends Component {
       }
 
       if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
-        console.log('upvoting with no postid in state and no id in bank')
+        console.log('upvoting with postid in state and id in bank')
         this.setState({
-          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id),
-          postid: this.state.postid.concat(event._id) })
+          postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
           method: 'PATCH',
@@ -278,7 +278,8 @@ class IndexPosts extends Component {
           .catch(console.error)
       }
       if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
-        this.setState({ postid: this.state.postid.concat(event._id) })
+        this.setState({ postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
         console.log('should send only if has no schema upvoteUserId')
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
@@ -307,7 +308,9 @@ class IndexPosts extends Component {
           },
           data: {
             post: {
-              upvote: 0 + event.upvote
+              upvote: 0 + event.upvote,
+              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+
             }
           }
         })
@@ -322,7 +325,7 @@ class IndexPosts extends Component {
   }
 
   consolelog = (event) => {
-    return console.log('this is event.upvot', event.upvote, 'this is event upvote userid', event.upvoteUserId, 'this is postid state', this.state.postid, 'this is send to userid schema', event.upvoteUserId.filter(id => id !== this.props.user._id))
+    return console.log('this is event.upvot', event.upvote, 'this is event upvote userid', event.upvoteUserId, 'this is postid state', this.state.postid, 'this is unvoteIDBANK', this.state.unvotedBankId)
   }
 
   // render is REQUIRED for any class component
