@@ -7,12 +7,18 @@ import React, { Component, Fragment } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Redirect, Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
 // apiUrl from apiConfig.js
 import apiUrl from './../../apiConfig'
 import moment from 'moment'
+
+export const Showcase = () => (
+  <FontAwesomeIcon icon={['fab', 'apple']} />
+)
 // 2. The class
 class IndexPostsPAR extends Component {
   // 2 very important React class component methods

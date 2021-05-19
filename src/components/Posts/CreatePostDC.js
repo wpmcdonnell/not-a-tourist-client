@@ -10,7 +10,9 @@ class CreatePostNY extends Component {
       // State for the form inputs
       post: {
         title: '',
-        list: ''
+        list: '',
+        upvote: 0,
+        upvoteUserId: [0]
       },
       // Boolean to handle before/after of submitting
       // created: false
