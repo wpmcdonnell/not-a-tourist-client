@@ -37,7 +37,8 @@ class IndexPosts extends Component {
       count: 0,
       iconClickedStyle: 'icon-clicked mr-2',
       postid: [],
-      unvotedBankId: [0]
+      unvotedBankId: [0],
+      pageflipper: 0
     }
   }
 
@@ -92,6 +93,7 @@ class IndexPosts extends Component {
       })
       // console.log(this.state.postid.filter(id => id === event._id))
       if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) {
+        this.setState({ pageflipper: 1 })
         console.log('patch for coming back to page after upvoting')
         axios({
           url: `${apiUrl}/posts-pictures/${event._id}`,
@@ -188,7 +190,7 @@ class IndexPosts extends Component {
       })
       // console.log(this.state.postid.filter(id => id === event._id))
 
-      if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+      if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) {
         console.log('upvoting with no postid in state and no user id in schema ')
         this.setState({
           postid: this.state.postid.concat(event._id),
@@ -309,8 +311,7 @@ class IndexPosts extends Component {
           data: {
             post: {
               upvote: 0 + event.upvote,
-              upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
-
+              upvoteUserId: event.upvoteUserId
             }
           }
         })
@@ -370,6 +371,7 @@ class IndexPosts extends Component {
                     <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid.filter(id => id === post._id).toString() !== post._id.toString()) && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id.toString()) ? this.state.iconClickedStyle : 'icon mr-2'}
 
                       icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || (post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id) ? this.decrement(post) : this.increment(post)}/>
+
                     <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
                     <Link className='d-inline col-md-3 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
                   </div>
