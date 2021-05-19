@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 import { Redirect, Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 // axios package (HTTP requests)
 // const axios = require('axios')
 import axios from 'axios'
@@ -27,14 +27,17 @@ class IndexPostsSE extends Component {
     // Set up the constructor, allow us to override some of what
     // we inherit
     super()
-
     // useFUL constructor sets state
     this.state = {
       // We'll be modifying the state after we get our data
       // initially we have no data & our state should show that
       posts: null,
       create: false,
-      pictures: null
+      count: 0,
+      iconClickedStyle: 'icon-clicked mr-2',
+      postid: [],
+      unvotedBankId: [0],
+      pageflipper: 0
     }
   }
 
@@ -59,7 +62,7 @@ class IndexPostsSE extends Component {
       .catch(console.error)
 
     axios({
-      url: `${apiUrl}/se-posts-pictures/ `,
+      url: `${apiUrl}/se-posts-pictures`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${user.token}`
@@ -67,17 +70,278 @@ class IndexPostsSE extends Component {
     })
 
       .then(response => {
-        console.log('this is ur response data', response)
         // Set the state to hold the array of posts
         // this will cause a re-render
         this.setState({ pictures: response.data.pictures })
-        console.log(this.state.pictures)
       })
       .catch(console.error)
   }
 
   create = (event) => {
     return this.setState({ create: true })
+  }
+
+  decrement = (event) => {
+    console.log('derement is happening')
+    const user = this.props.user
+    if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
+      this.setState({
+        count: this.state.count + 1,
+        // iconClickedStyle: 'icon-clicked animate mr-2',,
+        unvotedBankId: this.state.unvotedBankId.concat(event._id)
+      })
+      // console.log(this.state.postid.filter(id => id === event._id))
+      if ((event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) || ((this.state.pageflipper === 1) && event.upvote >= 1 && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString())) {
+        this.setState({
+          pageflipper: 1,
+          postid: this.state.postid.filter(id => id !== event._id)
+        })
+        console.log('patch for coming back to page after upvoting')
+        if (event.upvoteUserId.find(id => id === 1) === 1) {
+          axios({
+            url: `${apiUrl}/se-posts-pictures/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              picture: {
+                upvote: 0 + event.upvote - 1,
+                upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+        if (event.upvoteUserId.find(id => id === 0) === 0) {
+          axios({
+            url: `${apiUrl}/se-posts/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              post: {
+                upvote: 0 + event.upvote - 1,
+                upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+      }
+      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && event.upvote >= 0)) {
+        console.log('unvote if on same page')
+        this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
+        if (event.upvoteUserId.find(id => id === 1) === 1) {
+          axios({
+            url: `${apiUrl}/se-posts-pictures/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              picture: {
+                upvote: 0 + event.upvote,
+                upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+        if (event.upvoteUserId.find(id => id === 0) === 0) {
+          axios({
+            url: `${apiUrl}/se-posts/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              post: {
+                upvote: 0 + event.upvote,
+                upvoteUserId: event.upvoteUserId.filter(id => id !== this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+      }
+    }
+  }
+
+  increment = (event) => {
+    const user = this.props.user
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+      this.setState({
+        count: this.state.count + 1
+        // iconClickedStyle: 'icon-clicked animate mr-2',
+      })
+      // console.log(this.state.postid.filter(id => id === event._id))
+
+      if ((this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) || event.upvote === 0) {
+        console.log('upvoting with no postid in state and no user id in schema ')
+        this.setState({
+          postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
+        if (event.upvoteUserId.find(id => id === 1) === 1) {
+          axios({
+            url: `${apiUrl}/se-posts-pictures/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              picture: {
+                upvote: 0 + event.upvote + 1,
+                upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+        if (event.upvoteUserId.find(id => id === 0) === 0) {
+          axios({
+            url: `${apiUrl}/se-posts/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              post: {
+                upvote: 0 + event.upvote + 1,
+                upvoteUserId: event.upvoteUserId.concat(this.props.user._id)
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+      }
+
+      if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
+        console.log('upvoting with postid in state and id in bank')
+        this.setState({
+          postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
+        if (event.upvoteUserId.find(id => id === 1) === 1) {
+          axios({
+            url: `${apiUrl}/se-posts-pictures/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              picture: {
+                upvote: 0 + event.upvote
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+        if (event.upvoteUserId.find(id => id === 0) === 0) {
+          axios({
+            url: `${apiUrl}/se-posts/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              post: {
+                upvote: 0 + event.upvote
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+      }
+      if (event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
+        this.setState({ postid: this.state.postid.concat(event._id),
+          unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
+
+        console.log('should send only if has no schema upvoteUserId')
+        if (event.upvoteUserId.find(id => id === 1) === 1) {
+          axios({
+            url: `${apiUrl}/se-posts-pictures/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              picture: {
+                upvote: 0 + event.upvote,
+                upvoteUserId: event.upvoteUserId
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+        if (event.upvoteUserId.find(id => id === 0) === 0) {
+          axios({
+            url: `${apiUrl}/se-posts/${event._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            },
+            data: {
+              post: {
+                upvote: 0 + event.upvote,
+                upvoteUserId: event.upvoteUserId
+              }
+            }
+          })
+            .then(response => {
+              console.log(response)
+              // Set the state to hold the array of posts
+              // this will cause a re-render
+            })
+            .catch(console.error)
+        }
+      }
+    }
   }
 
   // render is REQUIRED for any class component
@@ -89,6 +353,7 @@ class IndexPostsSE extends Component {
       marginLeft: '1rem',
       marginRight: '1rem'
     }
+
     const { create } = this.state
     // 1 thing the render method does is "render" JSX
     // That means `return`ing JSX
@@ -102,7 +367,7 @@ class IndexPostsSE extends Component {
 
     if (create) {
       return <Redirect to={'/create-post-se'}/>
-    } else if (!this.state.posts) {
+    } else if (!this.state.posts || !this.state.pictures) {
       // if the posts state is null
       postsJsx = <p>Loading...</p>
     } else if (this.state.posts.length === 0) {
@@ -112,17 +377,24 @@ class IndexPostsSE extends Component {
       // we have posts! display them
       postsJsx = (
         <div className='mb-1'>
-          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => (
+          {this.state.posts.concat(this.state.pictures).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post =>
             <Card className='mb-2 shadow bg-white rounded' style={{ }} key={post._id}>
               <Card.Body>
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
-                  <Link to={`/se-posts/${post._id}`}>{post.title}</Link>
+                  <div className='d-inline'>
+                    <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid.filter(id => id === post._id).toString() !== post._id.toString()) && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id.toString()) ? this.state.iconClickedStyle : 'icon mr-2'}
+
+                      icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || (post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id) ? this.decrement(post) : this.increment(post)}/>
+
+                    <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
+                    <Link className='d-inline col-md-3 mx-auto' to={`/se-posts/${post._id}`}>{post.title}</Link>
+                  </div>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
-          ))}
+          )}
         </div>
       )
     }
@@ -135,10 +407,12 @@ class IndexPostsSE extends Component {
             <Link className='text-black mb-3' to={'/cities/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
               <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
             </svg> Cities </h5> </Link>
-            <h1 className='mb-1'>Seattle Bruh</h1>
+            <h1 className='mb-1'>Seattle, Washington</h1>
             <Button className='mb-2 shadow' variant='primary' onClick={this.create}>Create a Post</Button>
             <h3 className='mb-3'>Check out all the sweet posts</h3>
-            {postsJsx}
+            <div>
+              {postsJsx}
+            </div>
           </div>
         </div>
       </Fragment>

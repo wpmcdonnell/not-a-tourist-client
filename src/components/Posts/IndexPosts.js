@@ -92,7 +92,7 @@ class IndexPosts extends Component {
         unvotedBankId: this.state.unvotedBankId.concat(event._id)
       })
       // console.log(this.state.postid.filter(id => id === event._id))
-      if ((event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) || (this.state.pageflipper === 1)) {
+      if ((event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.postid.filter(id => id === event._id).toString() !== event._id.toString()) || ((this.state.pageflipper === 1) && event.upvote >= 1 && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString())) {
         this.setState({
           pageflipper: 1,
           postid: this.state.postid.filter(id => id !== event._id)
@@ -141,7 +141,7 @@ class IndexPosts extends Component {
             .catch(console.error)
         }
       }
-      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.pageflipper === 0)) {
+      if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && event.upvote >= 0)) {
         console.log('unvote if on same page')
         this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
         if (event.upvoteUserId.find(id => id === 1) === 1) {
@@ -192,14 +192,14 @@ class IndexPosts extends Component {
 
   increment = (event) => {
     const user = this.props.user
-    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) {
+    if (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() || event.upvote >= 1) {
       this.setState({
         count: this.state.count + 1
         // iconClickedStyle: 'icon-clicked animate mr-2',
       })
       // console.log(this.state.postid.filter(id => id === event._id))
 
-      if ((this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && event.upvote === 0)) {
+      if ((this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) || event.upvote === 0) {
         console.log('upvoting with no postid in state and no user id in schema ')
         this.setState({
           postid: this.state.postid.concat(event._id),
@@ -406,7 +406,7 @@ class IndexPosts extends Component {
 
     // Variable is referenced as JS in the JSX block
     return (
-      <Fragment key={this.state.count}>
+      <Fragment>
         <div className='index-posts' style={indexPostStyle}>
           <div className='mx-auto mb-5'>
             <Link className='text-black mb-3' to={'/cities/'}> <h5> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
