@@ -84,7 +84,7 @@ class IndexPostsNY extends Component {
   }
 
   decrement = (event) => {
-    console.log('derement is happening')
+    // console.log('derement is happening')
     const user = this.props.user
     if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() || event.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) {
       this.setState({
@@ -98,7 +98,7 @@ class IndexPostsNY extends Component {
           pageflipper: 1,
           postid: this.state.postid.filter(id => id !== event._id)
         })
-        console.log('patch for coming back to page after upvoting')
+        // console.log('patch for coming back to page after upvoting')
         if (event.upvoteUserId.find(id => id === 1) === 1) {
           axios({
             url: `${apiUrl}/ny-posts-pictures/${event._id}`,
@@ -114,7 +114,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -135,7 +135,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -143,7 +143,7 @@ class IndexPostsNY extends Component {
         }
       }
       if ((this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && event.upvote >= 0)) {
-        console.log('unvote if on same page')
+        // console.log('unvote if on same page')
         this.setState({ postid: this.state.postid.filter(id => id !== event._id) })
         if (event.upvoteUserId.find(id => id === 1) === 1) {
           axios({
@@ -160,7 +160,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -181,7 +181,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -201,7 +201,7 @@ class IndexPostsNY extends Component {
       // console.log(this.state.postid.filter(id => id === event._id))
 
       if ((this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString() && this.state.pageflipper === 0) || (this.state.postid.filter(id => id === event._id).toString() !== event._id.toString() && event.upvoteUserId.filter(id => id === this.props.user._id).toString() !== this.props.user._id.toString()) || event.upvote === 0) {
-        console.log('upvoting with no postid in state and no user id in schema ')
+        // console.log('upvoting with no postid in state and no user id in schema ')
         this.setState({
           postid: this.state.postid.concat(event._id),
           unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
@@ -220,7 +220,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -241,7 +241,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -250,7 +250,7 @@ class IndexPostsNY extends Component {
       }
 
       if (this.state.postid.filter(id => id === event._id).toString() === event._id.toString() && this.state.unvotedBankId.filter(id => id === event._id).toString() === event._id.toString()) {
-        console.log('upvoting with postid in state and id in bank')
+        // console.log('upvoting with postid in state and id in bank')
         this.setState({
           postid: this.state.postid.concat(event._id),
           unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
@@ -268,7 +268,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -288,7 +288,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
@@ -299,7 +299,7 @@ class IndexPostsNY extends Component {
         this.setState({ postid: this.state.postid.concat(event._id),
           unvotedBankId: this.state.unvotedBankId.filter(id => id !== event._id) })
 
-        console.log('should send only if has no schema upvoteUserId')
+        // console.log('should send only if has no schema upvoteUserId')
         if (event.upvoteUserId.find(id => id === 1) === 1) {
           axios({
             url: `${apiUrl}/ny-posts-pictures/${event._id}`,
@@ -315,7 +315,7 @@ class IndexPostsNY extends Component {
             }
           })
             .then(response => {
-              console.log(response)
+              // console.log(response)
               // Set the state to hold the array of posts
               // this will cause a re-render
             })
