@@ -11,6 +11,7 @@ class CreatePost extends Component {
       post: {
         title: '',
         list: '',
+        type: 'post',
         upvote: 0,
         upvoteUserId: [0]
       },
@@ -85,7 +86,7 @@ class CreatePost extends Component {
     }
     // createdId is initially null, we don't redirect
     if (this.state.createdId) {
-      return <Redirect to={`/posts/${this.state.createdId}`}/>
+      return <Redirect to={{ pathname: `/posts/${this.state.createdId}`, data: 'post' }}/>
     } else if (this.state.image) {
       return <Redirect to='/picture-upload/'/>
     }

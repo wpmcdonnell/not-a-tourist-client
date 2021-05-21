@@ -91,46 +91,46 @@ class Cities extends Component {
     return (
       <div className='pt-5'>
         <div className='row col-lg-9 mx-auto'style={cardContainerLayout}>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.newYork}>
             <Card.Img variant="top" src="ny.png"/>
             <Card.Body>
               <Card.Title>New York, New York</Card.Title>
-              <Button className='m' variant='primary' onClick={this.newYork}>NY</Button>
+              <Button className='m' variant='primary shadow-sm' onClick={this.newYork}>NY</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.seattle}>
             <Card.Img variant="top" src="se.png"/>
             <Card.Body>
               <Card.Title>Seattle, WA</Card.Title>
-              <Button variant='primary' onClick={this.seattle}>SE</Button>
+              <Button variant='primary shadow-sm' onClick={this.seattle}>SE</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.losAngeles}>
             <Card.Img variant="top" src="la.jpeg"/>
             <Card.Body>
               <Card.Title>Los Angeles, CA</Card.Title>
-              <Button variant='primary' onClick={this.losAngeles}>LA</Button>
+              <Button variant='primary shadow-sm' onClick={this.losAngeles}>LA</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="dc.jpeg"/>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.districtOfColumbia}>
+            <Card.Img variant="top" src="dc.jpeg" />
             <Card.Body>
               <Card.Title>Washington, DC</Card.Title>
-              <Button variant='primary' onClick={this.districtOfColumbia}>DC</Button>
+              <Button variant='primary shadow-sm' onClick={this.districtOfColumbia}>DC</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.tokyo}>
             <Card.Img variant="top" src="tokyo.jpeg"/>
             <Card.Body>
               <Card.Title>Tokyo, JP </Card.Title>
-              <Button variant='primary' onClick={this.tokyo}>TYO</Button>
+              <Button variant='primary shadow-sm' onClick={this.tokyo}>TYO</Button>
             </Card.Body>
           </Card>
-          <Card className="mb-5 shadow" style={{ width: '18rem' }}>
+          <Card className="mb-5 shadow" style={{ width: '18rem' }} onClick={this.paris}>
             <Card.Img variant="top" src="paris.jpeg"/>
             <Card.Body>
               <Card.Title>Paris, FR</Card.Title>
-              <Button variant='primary' onClick={this.paris}>PAR</Button>
+              <Button variant='primary shadow-sm' onClick={this.paris}>PAR</Button>
             </Card.Body>
           </Card>
         </div>

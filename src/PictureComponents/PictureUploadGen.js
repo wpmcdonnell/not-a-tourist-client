@@ -73,7 +73,7 @@ const UploadGen = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

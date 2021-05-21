@@ -393,7 +393,9 @@ class IndexPosts extends Component {
                       icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || (post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id) ? this.decrement(post) : this.increment(post)}/>
 
                     <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
-                    <Link className='d-inline col-md-3 mx-auto' to={`/posts/${post._id}`}>{post.title}</Link>
+                    <Link className='d-inline col-md-3 mx-auto' to={{
+                      pathname: `/posts/${post._id}`,
+                      data: post.type }}>{post.title}</Link>
                   </div>
                 </Card.Title>
                 <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
