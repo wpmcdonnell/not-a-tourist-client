@@ -73,7 +73,7 @@ const UploadTYO = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/tokyo-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/tokyo-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

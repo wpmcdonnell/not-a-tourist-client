@@ -42,36 +42,39 @@ class ShowPostNY extends Component {
 
   componentDidMount () {
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
-    axios({
-      url: `${apiUrl}/ny-posts/${this.props.match.params.id}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${this.props.user.token}`
-      }
-    })
-      .then(response => {
-        // axios response object contains a `data` key
-        // { data: { post: { title... }}}
-        // setting the state will force a re-render
-        this.setState({ post: response.data.post })
+    if (this.props.location.data === 'post') {
+      axios({
+        url: `${apiUrl}/ny-posts/${this.props.match.params.id}`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.props.user.token}`
+        }
       })
-      .catch(console.error)
-
-    axios({
-      url: `${apiUrl}/ny-posts-pictures/${this.props.match.params.id}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${this.props.user.token}`
-      }
-    })
-      .then(response => {
-        // axios response object contains a `data` key
-        // { data: { post: { title... }}}
-        // setting the state will force a re-render
-
-        this.setState({ picture: response.data.picture })
+        .then(response => {
+          // axios response object contains a `data` key
+          // { data: { post: { title... }}}
+          // setting the state will force a re-render
+          this.setState({ post: response.data.post })
+        })
+        .catch(console.error)
+    }
+    if (this.props.location.data === 'picture') {
+      axios({
+        url: `${apiUrl}/ny-posts-pictures/${this.props.match.params.id}`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.props.user.token}`
+        }
       })
-      .catch(console.error)
+        .then(response => {
+          // axios response object contains a `data` key
+          // { data: { post: { title... }}}
+          // setting the state will force a re-render
+
+          this.setState({ picture: response.data.picture })
+        })
+        .catch(console.error)
+    }
   }
 
   update = (event) => {
@@ -178,7 +181,7 @@ class ShowPostNY extends Component {
     } else if (picture && !post) {
       postJsx = (
         <div className='mb-4 mx-auto'>
-          <p className='post-date mb-1'>{moment(picture.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {picture.ownerName} </p></p>
+          <p className='post-date mb-1'>{moment(picture.createdAt).startOf('hour').fromNow()} by <i className='text-primary d-inline'> {picture.ownerName} </i></p>
           <Card className='mt-2 mb-3 shadow-lg bg-white rounded'>
             <Card.Body className=''>
               <Card.Title>
@@ -199,7 +202,7 @@ class ShowPostNY extends Component {
       // we have a post! Display it
       postJsx = (
         <div className='mb-5 mx-auto'>
-          <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <p className='text-primary d-inline'> {post.ownerName} </p></p>
+          <p className='post-date mb-1'>{moment(post.createdAt).startOf('hour').fromNow()} by <i className='text-primary d-inline'> {post.ownerName} </i></p>
           <h4 className='ml-1'>- {post.title}</h4>
           <Card className='mt-2 mb-4 post-box'>
             <Card.Body className='show-post-text'><Linkify>{post.list}</Linkify>

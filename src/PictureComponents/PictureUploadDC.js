@@ -73,7 +73,7 @@ const UploadDC = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/dc-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/dc-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

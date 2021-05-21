@@ -73,7 +73,7 @@ const UploadLA = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/la-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/la-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

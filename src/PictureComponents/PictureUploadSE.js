@@ -73,7 +73,7 @@ const UploadSE = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/se-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/se-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

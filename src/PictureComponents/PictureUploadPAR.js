@@ -73,7 +73,7 @@ const UploadPAR = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/paris-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/paris-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)

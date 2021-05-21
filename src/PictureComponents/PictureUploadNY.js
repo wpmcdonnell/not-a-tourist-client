@@ -73,7 +73,7 @@ const UploadNY = ({ user, msgAlert }) => {
   }
 
   if (createdId) {
-    return <Redirect to={`/ny-posts/${createdId}`}/>
+    return <Redirect to={{ pathname: `/ny-posts/${createdId}`, data: 'picture' }}/>
   }
 
   console.log(createdId)
