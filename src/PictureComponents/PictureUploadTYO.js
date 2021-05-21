@@ -43,7 +43,6 @@ const UploadTYO = ({ user, msgAlert }) => {
         setImageURL(response.data.picture.url)
         setCreatedId(response.data.picture._id)
       })
-      .then(() => setLoading(false))
       .then(() => msgAlert({
         heading: 'Picture Successfully Uploaded',
         message: 'Click to add more pictures to your account!',
@@ -75,8 +74,6 @@ const UploadTYO = ({ user, msgAlert }) => {
   if (createdId) {
     return <Redirect to={{ pathname: `/tokyo-posts/${createdId}`, data: 'picture' }}/>
   }
-
-  console.log(createdId)
 
   return (
     <div className="upload-page mb-5" style={uploadImageStyle}>

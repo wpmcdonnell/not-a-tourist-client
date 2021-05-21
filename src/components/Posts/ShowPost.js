@@ -45,7 +45,6 @@ class ShowPost extends Component {
   // and set the state to trigger a re-render
   componentDidMount () {
     // axios(apiUrl + '/posts/' + this.props.match.params.id)
-    console.log(this)
     if (this.props.location.data === 'post') {
       axios({
         url: `${apiUrl}/posts/${this.props.match.params.id}`,

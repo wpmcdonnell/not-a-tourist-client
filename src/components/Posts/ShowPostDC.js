@@ -70,7 +70,6 @@ class ShowPostDC extends Component {
         }
       })
         .then(response => {
-          console.log(response.data)
           // axios response object contains a `data` key
           // { data: { post: { title... }}}
           // setting the state will force a re-render
