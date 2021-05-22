@@ -31,7 +31,6 @@ const UploadPAR = ({ user, msgAlert }) => {
 
   const handleImageSubmit = event => {
     event.preventDefault()
-    console.log(user)
     const data = new FormData()
     data.append('picture', image)
     data.append('title', title)
