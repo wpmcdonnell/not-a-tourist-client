@@ -55,9 +55,6 @@ class IndexComments extends Component {
 
   deleteComment = (event) => {
     const msgAlert = this.props.msgAlert
-    console.log(event.target.id)
-    console.log(this.state.value)
-    console.log(this.props.user)
     // axios.delete(apiUrl + '/posts/' + this.props.match.params.id)
     axios({
       url: apiUrl + '/comments/' + event.target.id,
@@ -113,14 +110,14 @@ class IndexComments extends Component {
       commentsJsx = (
         <div className='ml-2'>
           {this.state.comments.filter(comments => comments.postOwner === this.props.match.params.id).map(filteredComments => (
-            <p key={filteredComments._id}>
-              <p className='owner'>{filteredComments.ownerName} <p className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </p></p>
-              <p className='show-comment-text ml-3'><Linkify>{filteredComments.text}</Linkify></p>
+            <div key={filteredComments._id}>
+              <i className='owner'>{filteredComments.ownerName} <i className='comment-date d-inline'> ... {moment(filteredComments.createdAt).startOf('hour').fromNow()} </i> </i>
+              <p className='show-comment-text ml-3 mt-1'><Linkify>{filteredComments.text}</Linkify></p>
               {filteredComments.owner === this.props.user._id && <a
-                href='javascript:;' className='delete-comment-link d-flex justify-content-end mr-2' id={filteredComments._id} onClick={this.deleteComment}>Delete
+                href='javascript:;' className='delete-comment-link d-inline d-flex justify-content-end mr-2' id={filteredComments._id} onClick={this.deleteComment}>Delete
               </a>
               }
-            </p>
+            </div>
           ))}
         </div>
       )
