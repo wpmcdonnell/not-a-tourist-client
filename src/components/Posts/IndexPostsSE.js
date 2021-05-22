@@ -382,16 +382,16 @@ class IndexPostsSE extends Component {
               <Card.Body>
                 <Card.Title>
                   <Card.Img className='mb-3' variant="top" src={post.url}/>
-                  <div className='d-inline'>
+                  <div className='row mr-1 ml-1'>
                     <FontAwesomeIcon value={this.state.count} className={(this.state.postid.filter(id => id === post._id).toString() === post._id.toString()) || ((post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString()) && (this.state.postid.filter(id => id === post._id).toString() !== post._id.toString()) && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id.toString()) ? this.state.iconClickedStyle : 'icon mr-2'}
 
                       icon={faArrowAltCircleUp} onClick={() => this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || (post.upvoteUserId.filter(id => id === this.props.user._id).toString() === this.props.user._id.toString() && this.state.unvotedBankId.filter(id => id === post._id).toString() !== post._id) ? this.decrement(post) : this.increment(post)}/>
 
                     <span className='mr-2'>{this.state.postid.filter(id => id === post._id).toString() === post._id.toString() || post.upvoteUserId === this.props.user._id ? post.upvote + 1 : post.upvote }</span>
-                    <Link className='d-inline col-md-3 mx-auto' to={{ pathname: `/se-posts/${post._id}`, data: post.type }}>{post.title}</Link>
+                    <Link className='col text-wrap' to={{ pathname: `/se-posts/${post._id}`, data: post.type }}>{post.title}</Link>
                   </div>
                 </Card.Title>
-                <p className='post-index-date d-inline'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
+                <p className='post-index-date d-inline ml-1'>{moment(post.createdAt).startOf('hour').fromNow()} </p>
               </Card.Body>
             </Card>
           )}
